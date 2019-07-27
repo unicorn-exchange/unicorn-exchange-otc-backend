@@ -4,6 +4,7 @@ import {createLogger} from "./utils/logger";
 import {initLoaders} from "./loaders";
 import {initMiddlewares} from "./api/middlewares";
 import {initServices} from "./services";
+import {initSocket} from "./socket";
 
 const app = express();
 const env = loadEnvVariables();
@@ -17,7 +18,7 @@ app.ctx = {
 initMiddlewares(env);
 initLoaders(app);
 
-app.listen(env.PORT, (err: Error) => {
+const server = app.listen(env.PORT, (err: Error) => {
   if (err) {
     app.ctx.logger.error(err);
     process.exit(1);
@@ -29,3 +30,5 @@ app.listen(env.PORT, (err: Error) => {
     ################################################
   `);
 });
+
+initSocket(server);
