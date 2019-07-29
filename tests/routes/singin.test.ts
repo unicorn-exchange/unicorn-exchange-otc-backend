@@ -1,9 +1,9 @@
 import {signInCtr} from "../../src/api/v1/routes/auth/signin";
 import {Auth} from "../../src/services/auth";
 import {defaultLogger} from "../../src/utils/logger";
-import {MockEnv} from "../test_utils";
+import {mockEnv} from "../test_utils";
 
-const auth = new Auth(defaultLogger, MockEnv);
+const auth = new Auth(defaultLogger, mockEnv);
 
 describe("Sign in route test", () => {
   it("should fail due to joi validation", async () => {

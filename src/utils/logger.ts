@@ -15,7 +15,7 @@ export const defaultLogger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-export function createLogger(env: IEnv): Logger {
+export function initLogger(env: IEnv): Logger {
   const transports = [];
 
   if (env.IS_PRODUCTION) {

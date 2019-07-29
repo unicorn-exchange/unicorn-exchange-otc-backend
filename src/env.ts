@@ -1,6 +1,7 @@
 import {config} from "dotenv";
 import path from "path";
 import {ENV_VARIABLES} from "./enum/environments";
+import {Dialect} from "sequelize";
 
 process.env.NODE_ENV = process.env.NODE_ENV || ENV_VARIABLES.DEVELOPMENT;
 
@@ -12,6 +13,7 @@ export interface IEnv {
   DB_NAME: string;
   DB_USERNAME: string;
   DB_PASSWORD: string;
+  DB_DIALECT?: Dialect;
 }
 
 class Env implements IEnv {
@@ -22,6 +24,7 @@ class Env implements IEnv {
   DB_NAME: string;
   DB_USERNAME: string;
   DB_PASSWORD: string;
+  DB_DIALECT?: Dialect;
 
   constructor(env: NodeJS.ProcessEnv) {
     if (!env.PORT) {
@@ -46,10 +49,12 @@ class Env implements IEnv {
     this.DB_NAME = env.DB_NAME;
     this.DB_USERNAME = env.DB_USERNAME;
     this.DB_PASSWORD = env.DB_PASSWORD;
+    this.DB_PASSWORD = env.DB_PASSWORD;
+    this.DB_DIALECT = env.DB_DIALECT as Dialect;
   }
 }
 
-export function loadEnvVariables(): IEnv {
+export function initEnvVariables(): IEnv {
   if (process.env.NODE_ENV === ENV_VARIABLES.DEVELOPMENT) {
     const envFound = config({path: path.join(__dirname, "../../.env")});
     if (envFound.error) throw envFound.error;

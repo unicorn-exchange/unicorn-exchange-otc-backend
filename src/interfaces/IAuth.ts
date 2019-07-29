@@ -5,7 +5,3 @@ export interface IAuth {
   signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}>;
   signUp(user: ISignUpUserInput): Promise<ICommonResponse>;
 }
-
-// export abstract class IAuth {
-//   abstract signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}>;
-// }

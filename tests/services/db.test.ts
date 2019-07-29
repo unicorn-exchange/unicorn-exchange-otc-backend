@@ -1,17 +1,27 @@
-import {MockEnv} from "../test_utils";
-import {connectToDB} from "../../src/services/db";
+import {mockEnv} from "../test_utils";
+import {initDBConnection} from "../../src/services/db";
+import {UserModel} from "../../src/models/user.model";
+import {initModels} from "../../src/models";
 
-const sequelize = connectToDB(MockEnv);
+describe("Database test",() => {
+  // it("should connect to database", () => {
+  //   return db.connection
+  //     .authenticate()
+  //     .then(() => {
+  //       console.log('Connection has been established successfully.');
+  //     });
+  // });
 
-describe("Database test", () => {
-  it("should connect to database", () => {
-    return sequelize
-      .authenticate()
+  it("should be able to manipulate with models", () => {
+    return initDBConnection(mockEnv)
+      .then(initModels)
       .then(() => {
-        console.log('Connection has been established successfully.');
-      })
-      .catch(err => {
-        console.error('Unable to connect to the database:', err);
+        return UserModel
+          .findAll()
+          .then(a => {
+            expect(true).toBe(true);
+            return a
+          });
       });
   });
 });
