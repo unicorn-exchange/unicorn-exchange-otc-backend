@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
-import {IUserRecord} from "../interfaces/IUser";
-import {Application} from "express";
+import {randomBytes} from "crypto";
+import {ISignUpUserInput, IUserRecord} from "../interfaces/IUser";
 import {IAuth} from "../interfaces/IAuth";
 import {IEnv} from "../env";
+import {ICommonResponse} from "../types/api-doc";
+import {Logger} from "winston";
 //
 // @Service()
 // export default class AuthService {
@@ -121,29 +123,34 @@ import {IEnv} from "../env";
 // }
 
 export class Auth implements IAuth {
-  private app: Application;
+  private logger: Logger;
   private env: IEnv;
 
-  constructor(app: Application, env: IEnv) {
-    this.app = app;
+  constructor(logger: Logger, env: IEnv) {
+    this.logger = logger;
     this.env = env;
   }
 
-  async signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {
+  signUp(user:ISignUpUserInput): Promise<ICommonResponse> {
+    const salt = randomBytes(32);
+    throw new Error("Method not implemented.");
+  }
+
+  signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {
     const userRecord = {id: 1, username: "username", email: "email", password: "password"};
     if (!userRecord) {
       throw new Error("User not registered");
     }
-    /**
-     * We use verify from argon2 to prevent 'timing based' attacks
-     */
-    const isValidPassword = await argon2.verify(userRecord.password, password);
-    if (isValidPassword) {
-      const token = this.generateToken(userRecord);
-      return {user: userRecord, token};
-    } else {
-      throw new Error("Invalid Password");
-    }
+    return argon2
+      .verify(userRecord.password, password)
+      .then(() => {
+        const token = this.generateToken(userRecord);
+        return {user: userRecord, token};
+      })
+      .catch(err => {
+        this.logger.error(err);
+        throw new Error("Invalid Password");
+      });
   }
 
   private generateToken(user: IUserRecord) {
@@ -151,7 +158,7 @@ export class Auth implements IAuth {
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
-    this.app.ctx.logger.silly(`Sign JWT for userId: ${user.id}`);
+    this.logger.silly(`Sign JWT for userId: ${user.id}`);
     return jwt.sign(
       {
         _id: user.id, // We are gonna use this in the middleware 'isAuth'
