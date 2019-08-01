@@ -12,6 +12,7 @@ export interface IServices {
   auth: IAuth;
   errorReporter: IErrorReporter;
   mailer: IMailer;
+  db: Sequelize;
 }
 
 export async function initServices(app: Application, db: Sequelize, env: IEnv): Promise<IServices> {
@@ -19,5 +20,6 @@ export async function initServices(app: Application, db: Sequelize, env: IEnv): 
     errorReporter: new ErrorReporter(app, env),
     mailer: new Mailer(app, env),
     auth: new Auth(app.ctx.logger, env),
+    db,
   };
 }

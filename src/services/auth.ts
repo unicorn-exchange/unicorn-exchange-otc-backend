@@ -131,9 +131,9 @@ export class Auth implements IAuth {
     this.env = env;
   }
 
-  signUp(user:ISignUpUserInput): Promise<ICommonResponse> {
+  signUp(user: ISignUpUserInput): Promise<ICommonResponse> {
     const salt = randomBytes(32);
-    throw new Error("Method not implemented.");
+    return Promise.resolve({ok: true});
   }
 
   signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {

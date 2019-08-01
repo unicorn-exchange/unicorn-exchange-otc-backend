@@ -21,7 +21,7 @@ initDBConnection(env)
       env,
       logger,
       services,
-      db,
+      db: services.db,
     };
     initMiddlewares(env);
     initLoaders(app);

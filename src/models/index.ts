@@ -1,7 +1,7 @@
 import {Sequelize} from "sequelize";
 import {readdirSync} from "fs";
 
-const modelPath = "./";
+const modelPath = "src/models";
 
 export function initModels(db: Sequelize): Promise<Sequelize> {
   readdirSync(modelPath)

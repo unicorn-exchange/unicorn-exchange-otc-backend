@@ -4,13 +4,15 @@ import {ICommonResponse} from "../../../../types/api-doc";
 import {IAuth} from "../../../../interfaces/IAuth";
 
 export const validationScheme = Joi.object().keys({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
+  username: Joi.string().required(),
+  email: Joi.string()
+    .email()
+    .required(),
   password: Joi.string().required(),
 });
 
 export interface ISignUpResponse extends ICommonResponse {
-  errors: Array<ValidationError>
+  errors: Array<ValidationError>;
   token?: string;
 }
 

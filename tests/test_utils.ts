@@ -13,10 +13,16 @@ export const mockEnv: IEnvTest = {
   SQLITE_STORAGE: "./db.sqlite",
   IS_PRODUCTION: false,
   JWT_SECRET: "secret",
-  PORT: 3000
+  PORT: 3000,
 };
 
-export const mockUser: ISignUpUserInput = {
+export const mockUserInvalid: ISignUpUserInput = {
+  email: "invalid",
+  password: "invalid",
+  username: "invalid",
+};
+
+export const mockUserValid: ISignUpUserInput = {
   email: "test@google.com",
   password: "password",
   username: "username",

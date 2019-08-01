@@ -11,7 +11,7 @@ export const validationScheme = Joi.object().keys({
 });
 
 export interface ISignInResponse extends ICommonResponse {
-  errors: Array<ValidationError>
+  errors: Array<ValidationError>;
   token?: string;
 }
 
