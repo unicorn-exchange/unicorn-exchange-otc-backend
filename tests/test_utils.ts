@@ -12,7 +12,7 @@ export const mockEnv: IEnvTest = {
   DB_NAME: "",
   DB_PASSWORD: "",
   DB_USERNAME: "",
-  SQLITE_STORAGE: "./db.sqlite",
+  SQLITE_STORAGE: "db.sqlite",
   IS_PRODUCTION: false,
   JWT_SECRET: "secret",
   PORT: 3000,

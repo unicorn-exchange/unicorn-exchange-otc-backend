@@ -28,8 +28,17 @@ export function initLogger(env: IEnv): Logger {
     transports.push(new winston.transports.Console());
   }
 
-  defaultLogger.level = env.IS_PRODUCTION ? "info" : "debug";
-  defaultLogger.transports = transports;
-
-  return defaultLogger;
+  return winston.createLogger({
+    level: env.IS_PRODUCTION ? "info" : "debug",
+    levels: winston.config.npm.levels,
+    format: winston.format.combine(
+      winston.format.timestamp({
+        format: "YYYY-MM-DD HH:mm:ss",
+      }),
+      winston.format.errors({stack: true}),
+      winston.format.splat(),
+      winston.format.json(),
+    ),
+    transports,
+  });
 }

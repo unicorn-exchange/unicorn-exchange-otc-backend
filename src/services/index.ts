@@ -18,7 +18,7 @@ export async function initServices(ctx: IBaseContext, db: Sequelize): Promise<IS
   return {
     errorReporter: new ErrorReporter(ctx),
     mailer: new Mailer(ctx),
-    auth: new LocalAuth(ctx),
+    auth: new LocalAuth(ctx, db),
     db,
   };
 }

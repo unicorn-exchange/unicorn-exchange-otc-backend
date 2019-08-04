@@ -1,9 +1,10 @@
 import {signInCtr} from "../../src/api/v1/routes/auth/signin";
 import {LocalAuth} from "../../src/services/auth/local-auth";
-import {defaultLogger} from "../../src/utils/logger";
-import {mockBaseCtx, mockEnv, mockUserInvalid, mockUserValid} from "../test_utils";
+import {mockBaseCtx, mockUserInvalid} from "../test_utils";
+import {createDB} from "../../src/services/db";
 
-const auth = new LocalAuth(mockBaseCtx);
+const db = createDB(mockBaseCtx);
+const auth = new LocalAuth(mockBaseCtx, db);
 
 describe("Sign in route test", () => {
   it("should fail due to joi validation", async () => {

@@ -3,6 +3,7 @@ import {mockEnv} from "../../tests/test_utils";
 import path from "path";
 import {IBaseContext} from "../interfaces/IContext";
 import {UserModel} from "../models/user.model";
+import {ROOT} from "../../config";
 
 export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
   const db = createDB(ctx);
@@ -12,11 +13,13 @@ export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
 
 export function createDB(ctx: IBaseContext): Sequelize {
   const {env} = ctx;
+  const storage = path.join(ROOT, "./tests", mockEnv.SQLITE_STORAGE);
+
   return new Sequelize(env.DB_NAME, env.DB_USERNAME, env.DB_PASSWORD, {
     models: [UserModel],
     logging: console.log,
     host: env.DB_HOST,
     dialect: env.DB_DIALECT ? env.DB_DIALECT : "sqlite",
-    storage: path.join("./tests", mockEnv.SQLITE_STORAGE),
+    storage,
   });
 }
