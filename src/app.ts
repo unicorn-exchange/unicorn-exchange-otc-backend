@@ -7,15 +7,19 @@ import {initServices} from "./services";
 import {initSocket} from "./socket";
 import {initModels} from "./models";
 import {initDBConnection} from "./services/db";
+import {IBaseContext} from "./interfaces/IContext";
 
 const app = express();
 const env = initEnvVariables();
 const logger = initLogger(env);
+const baseCtx: IBaseContext = {
+  env,
+  logger,
+};
 
-// const services = initServices(app, env);
-initDBConnection(env)
+initDBConnection(baseCtx)
   .then(initModels)
-  .then(db => initServices(app, db, env))
+  .then(db => initServices(baseCtx, db))
   .then(services => {
     app.ctx = {
       env,
@@ -23,7 +27,7 @@ initDBConnection(env)
       services,
       db: services.db,
     };
-    initMiddlewares(env);
+    initMiddlewares(app);
     initLoaders(app);
 
     const server = app.listen(env.PORT, (err: Error) => {

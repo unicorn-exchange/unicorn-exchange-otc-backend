@@ -1,9 +1,9 @@
-import {IContext} from "../../interfaces/IContext";
+import {IAppContext} from "../../interfaces/IContext";
 
 declare global {
   namespace Express {
     export interface Application {
-      ctx: IContext;
+      ctx: IAppContext;
     }
 
     export interface Request {

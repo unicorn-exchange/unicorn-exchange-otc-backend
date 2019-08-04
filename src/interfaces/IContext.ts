@@ -3,9 +3,12 @@ import {Logger} from "winston";
 import {IServices} from "../services";
 import {Sequelize} from "sequelize";
 
-export interface IContext {
+export interface IBaseContext {
   env: IEnv;
   logger: Logger;
+}
+
+export interface IAppContext extends IBaseContext {
   services: IServices;
   db: Sequelize;
 }

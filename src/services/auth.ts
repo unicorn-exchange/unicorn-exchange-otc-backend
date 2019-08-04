@@ -6,6 +6,7 @@ import {IAuth} from "../interfaces/IAuth";
 import {IEnv} from "../env";
 import {ICommonResponse} from "../types/api-doc";
 import {Logger} from "winston";
+import {IBaseContext} from "../interfaces/IContext";
 //
 // @Service()
 // export default class AuthService {
@@ -35,21 +36,21 @@ import {Logger} from "winston";
 //        * watches every API call and if it spots a 'password' and 'email' property then
 //        * it decides to steal them!? Would you even notice that? I wouldn't :/
 //        */
-//       this.logger.silly("Hashing password");
+//       this.ctx.logger.silly("Hashing password");
 //       const hashedPassword = await argon2.hash(userInputDTO.password, {salt});
-//       this.logger.silly("Creating user db record");
+//       this.ctx.logger.silly("Creating user db record");
 //       const userRecord = await this.userModel.create({
 //         ...userInputDTO,
 //         salt: salt.toString("hex"),
 //         password: hashedPassword,
 //       });
-//       this.logger.silly("Generating JWT");
+//       this.ctx.logger.silly("Generating JWT");
 //       const token = this.generateToken(userRecord);
 //
 //       if (!userRecord) {
 //         throw new Error("User cannot be created");
 //       }
-//       this.logger.silly("Sending welcome email");
+//       this.ctx.logger.silly("Sending welcome email");
 //       await this.mailer.SendWelcomeEmail(userRecord);
 //
 //       /**
@@ -63,7 +64,7 @@ import {Logger} from "winston";
 //       Reflect.deleteProperty(user, "salt");
 //       return {user, token};
 //     } catch (e) {
-//       this.logger.error(e);
+//       this.ctx.logger.error(e);
 //       throw e;
 //     }
 //   }
@@ -76,11 +77,11 @@ import {Logger} from "winston";
 //     /**
 //      * We use verify from argon2 to prevent 'timing based' attacks
 //      */
-//     this.logger.silly("Checking password");
+//     this.ctx.logger.silly("Checking password");
 //     const validPassword = await argon2.verify(userRecord.password, password);
 //     if (validPassword) {
-//       this.logger.silly("Password is valid!");
-//       this.logger.silly("Generating JWT");
+//       this.ctx.logger.silly("Password is valid!");
+//       this.ctx.logger.silly("Generating JWT");
 //       const token = this.generateToken(userRecord);
 //
 //       const user = userRecord.toObject();
@@ -109,7 +110,7 @@ import {Logger} from "winston";
 //      * because it doesn't have _the secret_ to sign it
 //      * more information here: https://softwareontheroad.com/you-dont-need-passport
 //      */
-//     this.logger.silly(`Sign JWT for userId: ${user._id}`);
+//     this.ctx.logger.silly(`Sign JWT for userId: ${user._id}`);
 //     return jwt.sign(
 //       {
 //         _id: user._id, // We are gonna use this in the middleware 'isAuth'
@@ -123,12 +124,10 @@ import {Logger} from "winston";
 // }
 
 export class Auth implements IAuth {
-  private logger: Logger;
-  private env: IEnv;
+  private ctx: IBaseContext;
 
-  constructor(logger: Logger, env: IEnv) {
-    this.logger = logger;
-    this.env = env;
+  constructor(ctx: IBaseContext) {
+    this.ctx = ctx;
   }
 
   signUp(user: ISignUpUserInput): Promise<ICommonResponse> {
@@ -148,7 +147,7 @@ export class Auth implements IAuth {
         return {user: userRecord, token};
       })
       .catch(err => {
-        this.logger.error(err);
+        this.ctx.logger.error(err);
         throw new Error("Invalid Password");
       });
   }
@@ -158,7 +157,7 @@ export class Auth implements IAuth {
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
-    this.logger.silly(`Sign JWT for userId: ${user.id}`);
+    this.ctx.logger.silly(`Sign JWT for userId: ${user.id}`);
     return jwt.sign(
       {
         _id: user.id, // We are gonna use this in the middleware 'isAuth'
@@ -166,7 +165,7 @@ export class Auth implements IAuth {
         name: "Alex",
         exp: exp.getTime() / 1000,
       },
-      this.env.JWT_SECRET,
+      this.ctx.env.JWT_SECRET,
     );
   }
 }

@@ -1,9 +1,9 @@
-import {mockEnv} from "../test_utils";
+import {mockBaseCtx, mockEnv} from "../test_utils";
 import {createDB} from "../../src/services/db";
 import {UserModel} from "../../src/models/user.model";
 import {initModels} from "../../src/models";
 
-const db = createDB(mockEnv);
+const db = createDB(mockBaseCtx);
 
 describe("Database test", () => {
   it("should connect to database", () => {

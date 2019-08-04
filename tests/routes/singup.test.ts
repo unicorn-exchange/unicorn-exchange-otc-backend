@@ -1,11 +1,12 @@
 import {Auth} from "../../src/services/auth";
 import {defaultLogger} from "../../src/utils/logger";
-import {mockEnv, mockUserInvalid, mockUserValid} from "../test_utils";
+import {mockBaseCtx, mockEnv, mockUserInvalid, mockUserValid} from "../test_utils";
 import {signUpCtr} from "../../src/api/v1/routes/auth/signup";
 import {createDB} from "../../src/services/db";
+import {IAppContext} from "../../src/interfaces/IContext";
 
-const db = createDB(mockEnv);
-const auth = new Auth(defaultLogger, mockEnv);
+const db = createDB(mockBaseCtx);
+const auth = new Auth(mockBaseCtx);
 
 let transaction: any;
 describe("Signup in route test", () => {
