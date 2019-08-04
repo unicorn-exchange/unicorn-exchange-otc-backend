@@ -13,7 +13,7 @@ describe("Database test", () => {
   });
 
   it("should be able to manipulate with models", () => {
-    return initModels(db).then(() => {
+    return initModels(db, mockEnv).then(() => {
       return UserModel.findAll().then(users => {
         expect(Array.isArray(users)).toBe(true);
       });

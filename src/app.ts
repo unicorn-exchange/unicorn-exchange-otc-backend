@@ -18,7 +18,7 @@ const baseCtx: IBaseContext = {
 };
 
 initDBConnection(baseCtx)
-  .then(initModels)
+  .then(db => initModels(db, env))
   .then(db => initServices(baseCtx, db))
   .then(services => {
     app.ctx = {

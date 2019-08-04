@@ -1,24 +1,16 @@
-import {Sequelize, Model, DataTypes} from "sequelize";
+import {Table, Column, Model, DataType} from "sequelize-typescript";
 
-export class UserModel extends Model {}
+@Table
+export class UserModel extends Model<UserModel> {
+  @Column(DataType.STRING)
+  email: string | undefined;
 
-export default function(connection: Sequelize) {
-  UserModel.init(
-    {
-      title: DataTypes.STRING,
-      description: DataTypes.TEXT,
-    },
-    {
-      sequelize: connection,
-      modelName: "user",
-    },
-  );
+  @Column(DataType.STRING)
+  password: string | undefined;
+
+  @Column(DataType.STRING)
+  salt: string | undefined;
+
+  @Column(DataType.STRING)
+  username: string | undefined;
 }
-
-// UserModel.init({
-//   title: DataTypes.STRING,
-//   description: DataTypes.TEXT,
-// }, {
-//   sequelize: connection,
-//   modelName: "user",
-// });

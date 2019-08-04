@@ -1,7 +1,7 @@
 import {IEnv} from "../env";
 import {Logger} from "winston";
 import {IServices} from "../services";
-import {Sequelize} from "sequelize";
+import {Sequelize} from "sequelize-typescript";
 
 export interface IBaseContext {
   env: IEnv;

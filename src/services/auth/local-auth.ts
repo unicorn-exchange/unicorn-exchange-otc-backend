@@ -1,12 +1,11 @@
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
 import {randomBytes} from "crypto";
-import {ISignUpUserInput, IUserRecord} from "../interfaces/IUser";
-import {IAuth} from "../interfaces/IAuth";
-import {IEnv} from "../env";
-import {ICommonResponse} from "../types/api-doc";
-import {Logger} from "winston";
-import {IBaseContext} from "../interfaces/IContext";
+import {ISignUpUserInput, IUserRecord} from "../../interfaces/IUser";
+import {IAuth} from "../../interfaces/IAuth";
+import {IBaseContext} from "../../interfaces/IContext";
+import {Sequelize} from "sequelize-typescript";
+import {UserModel} from "../../models/user.model";
 //
 // @Service()
 // export default class AuthService {
@@ -123,36 +122,57 @@ import {IBaseContext} from "../interfaces/IContext";
 //   }
 // }
 
-export class Auth implements IAuth {
+export class LocalAuth implements IAuth {
   private ctx: IBaseContext;
+  private db: Sequelize;
 
-  constructor(ctx: IBaseContext) {
+  constructor(ctx: IBaseContext, db: Sequelize) {
     this.ctx = ctx;
+    this.db = db;
   }
 
-  signUp(user: ISignUpUserInput): Promise<ICommonResponse> {
+  signUp(user: ISignUpUserInput): Promise<{user: any; token: string}> {
     const salt = randomBytes(32);
-    return Promise.resolve({ok: true});
+    return argon2
+      .hash(user.password, {salt})
+      .then(hashedPassword => {
+        return UserModel.create({
+          ...user,
+          salt: salt.toString("hex"),
+          password: hashedPassword,
+        });
+      })
+      .then(userRec => {
+        const token = this.generateToken(userRec);
+        return {user, token};
+      })
+      .catch(err => {
+        this.ctx.logger.error(err);
+        throw new Error("Can't sign up user");
+      });
   }
 
   signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {
-    const userRecord = {id: 1, username: "username", email: "email", password: "password"};
-    if (!userRecord) {
-      throw new Error("User not registered");
-    }
-    return argon2
-      .verify(userRecord.password, password)
-      .then(() => {
-        const token = this.generateToken(userRecord);
-        return {user: userRecord, token};
+    return UserModel
+      .findOne()
+      .then((userRecord: UserModel) => {
+        if (!userRecord) {
+          throw new Error("User not registered");
+        }
+        return argon2
+          .verify(userRecord.password, password)
+          .then(() => {
+            const token = this.generateToken(userRecord);
+            return {user: userRecord, token};
+          })
       })
-      .catch(err => {
+      .catch((err: Error) => {
         this.ctx.logger.error(err);
         throw new Error("Invalid Password");
       });
   }
 
-  private generateToken(user: IUserRecord) {
+  private generateToken(user: UserModel) {
     const today = new Date(); // TODO: Change to moment.js
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);

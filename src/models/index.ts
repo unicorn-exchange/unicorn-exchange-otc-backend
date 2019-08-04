@@ -1,15 +1,6 @@
-import {Sequelize} from "sequelize";
-import {readdirSync} from "fs";
+import {Sequelize} from "sequelize-typescript";
+import {IEnv} from "../env";
 
-const modelPath = "src/models";
-
-export function initModels(db: Sequelize): Promise<Sequelize> {
-  readdirSync(modelPath)
-    .filter(file => file.includes(".model"))
-    .forEach(file => {
-      console.log("Incl", file);
-      db.import(file);
-    });
-
-  return db.sync();
+export function initModels(db: Sequelize, env: IEnv): Promise<Sequelize> {
+  return db.sync({force: true});
 }

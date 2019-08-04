@@ -22,8 +22,8 @@ export async function signUpCtr(auth: IAuth, user: ISignUpUserInput): Promise<IS
 
   return auth
     .signUp(user)
-    .then(({ok}) => {
-      return {ok, errors: []};
+    .then(({user, token}) => {
+      return {ok: true, user, token, errors: []};
     })
     .catch(err => {
       return {ok: false, errors: [err]};

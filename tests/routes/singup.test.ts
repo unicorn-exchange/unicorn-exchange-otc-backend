@@ -1,4 +1,4 @@
-import {Auth} from "../../src/services/auth";
+import {LocalAuth} from "../../src/services/auth/local-auth";
 import {defaultLogger} from "../../src/utils/logger";
 import {mockBaseCtx, mockEnv, mockUserInvalid, mockUserValid} from "../test_utils";
 import {signUpCtr} from "../../src/api/v1/routes/auth/signup";
@@ -6,7 +6,7 @@ import {createDB} from "../../src/services/db";
 import {IAppContext} from "../../src/interfaces/IContext";
 
 const db = createDB(mockBaseCtx);
-const auth = new Auth(mockBaseCtx);
+const auth = new LocalAuth(mockBaseCtx, db);
 
 let transaction: any;
 describe("Signup in route test", () => {
