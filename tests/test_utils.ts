@@ -25,9 +25,9 @@ export const mockUserInvalid: ISignUpUserInput = {
 };
 
 export const mockUserValid: ISignUpUserInput = {
-  email: "test@google.com",
-  password: "password",
-  username: "username",
+  email: "test1@google.com",
+  password: "password1",
+  username: "username1",
 };
 
 export const mockBaseCtx: IBaseContext = {

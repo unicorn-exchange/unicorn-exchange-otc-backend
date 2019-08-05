@@ -154,7 +154,8 @@ export class LocalAuth implements IAuth {
 
   signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {
     return UserModel
-      .findOne()
+      .findOne({where: {email}})
+      // @ts-ignore
       .then((userRecord: UserModel) => {
         if (!userRecord) {
           throw new Error("User not registered");
@@ -164,7 +165,7 @@ export class LocalAuth implements IAuth {
           .then(() => {
             const token = this.generateToken(userRecord);
             return {user: userRecord, token};
-          })
+          });
       })
       .catch((err: Error) => {
         this.ctx.logger.error(err);

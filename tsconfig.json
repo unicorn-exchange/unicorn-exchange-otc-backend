@@ -19,7 +19,7 @@
     "emitDecoratorMetadata": true,
     "declaration": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "noUnusedLocals": false,
     "baseUrl": ".",
     "moduleResolution": "node",

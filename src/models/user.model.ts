@@ -1,16 +1,16 @@
 import {Table, Column, Model, DataType} from "sequelize-typescript";
 
-@Table
+@Table({modelName: "users"})
 export class UserModel extends Model<UserModel> {
   @Column(DataType.STRING)
-  email: string | undefined;
+  email!: string;
 
   @Column(DataType.STRING)
-  password: string | undefined;
+  password!: string;
 
   @Column(DataType.STRING)
-  salt: string | undefined;
+  salt!: string;
 
   @Column(DataType.STRING)
-  username: string | undefined;
+  username!: string;
 }
