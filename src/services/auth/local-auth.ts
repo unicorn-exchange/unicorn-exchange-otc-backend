@@ -6,6 +6,7 @@ import {IAuth} from "../../interfaces/IAuth";
 import {IBaseContext} from "../../interfaces/IContext";
 import {Sequelize} from "sequelize-typescript";
 import {UserModel} from "../../models/user.model";
+import {Enum} from "../../enum/enum";
 //
 // @Service()
 // export default class AuthService {
@@ -138,7 +139,7 @@ export class LocalAuth implements IAuth {
       .then(hashedPassword => {
         return UserModel.create({
           ...user,
-          salt: salt.toString("hex"),
+          salt: salt.toString(Enum.Hex),
           password: hashedPassword,
         });
       })
