@@ -22,6 +22,7 @@ export function createDB(ctx: IBaseContext): Sequelize {
   const sequelize = new Sequelize({
     username: env.DB_USERNAME,
     password: env.DB_PASSWORD,
+    // eslint-disable-next-line no-console
     logging: console.log,
     host: env.DB_HOST,
     dialect: env.DB_DIALECT ? env.DB_DIALECT : "sqlite",

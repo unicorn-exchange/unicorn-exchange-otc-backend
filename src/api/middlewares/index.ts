@@ -1,4 +1,3 @@
-import {IEnv} from "../../env";
 import {initAuthMiddleware} from "./isAuth";
 import {Application} from "express";
 

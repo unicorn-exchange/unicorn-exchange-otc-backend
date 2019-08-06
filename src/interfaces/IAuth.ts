@@ -7,5 +7,6 @@ interface IAuthResponse {
 
 export interface IAuth {
   signIn(email: string, password: string): Promise<IAuthResponse>;
+
   signUp(user: ISignUpUserInput): Promise<IAuthResponse>;
 }

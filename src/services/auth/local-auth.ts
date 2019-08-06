@@ -153,24 +153,23 @@ export class LocalAuth implements IAuth {
   }
 
   signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {
-    return UserModel
-      .findOne({where: {email}})
+    return (
+      UserModel.findOne({where: {email}})
       // @ts-ignore
-      .then((userRecord: UserModel) => {
-        if (!userRecord) {
-          throw new Error("User not registered");
-        }
-        return argon2
-          .verify(userRecord.password, password)
-          .then(() => {
+        .then((userRecord: UserModel) => {
+          if (!userRecord) {
+            throw new Error("User not registered");
+          }
+          return argon2.verify(userRecord.password, password).then(() => {
             const token = this.generateToken(userRecord);
             return {user: userRecord, token};
           });
-      })
-      .catch((err: Error) => {
-        this.ctx.logger.error(err);
-        throw new Error("Invalid Password");
-      });
+        })
+        .catch((err: Error) => {
+          this.ctx.logger.error(err);
+          throw new Error("Invalid Password");
+        })
+    );
   }
 
   private generateToken(user: UserModel) {

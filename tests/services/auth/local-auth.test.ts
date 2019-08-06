@@ -25,7 +25,7 @@ describe("Local auth service test", () => {
         expect(res.user.email).toBe(mockUserValid.email);
         return auth.signIn(mockUserValid.email, mockUserValid.password);
       })
-      .then((res) => {
+      .then(res => {
         expect(res.user.password).not.toBe(mockUserValid.password);
       });
   });

@@ -1,7 +1,5 @@
 import {IUserRecord} from "../interfaces/IUser";
 import {IMailer} from "../interfaces/IMailer";
-import {Application} from "express";
-import {IEnv} from "../env";
 import {IBaseContext} from "../interfaces/IContext";
 
 export class Mailer implements IMailer {
@@ -17,6 +15,7 @@ export class Mailer implements IMailer {
      */
     return {delivered: 1, status: "ok"};
   }
+
   startEmailSequence(sequence: string, user: Partial<IUserRecord>) {
     if (!user.email) {
       throw new Error("No email provided");

@@ -7,6 +7,7 @@ export function initSocket(server: Server) {
 
   io.on(Events.Connect, (socket: Socket) => {
     socket.on(Events.Message, (message: any) => {
+      // eslint-disable-next-line no-console
       console.log(message);
     });
   });
