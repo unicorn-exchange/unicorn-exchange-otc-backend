@@ -11,4 +11,8 @@ export function initSocket(server: Server) {
       console.log(message);
     });
   });
+
+  io.on(Events.Message, (msg: any) => {
+
+  });
 }
