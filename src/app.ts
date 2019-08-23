@@ -5,8 +5,7 @@ import {initLoaders} from "./loaders";
 import {initMiddlewares} from "./api/middlewares";
 import {initServices} from "./services";
 import {initSocket} from "./socket";
-import {initModels} from "./models";
-import {initDBConnection} from "./services/db";
+import {initDBConnection, initModels} from "./services/db";
 import {IBaseContext} from "./interfaces/IContext";
 
 const app = express();

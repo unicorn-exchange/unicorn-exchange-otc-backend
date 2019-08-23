@@ -1,6 +1,6 @@
-import {IUserRecord} from "../interfaces/IUser";
 import {IMailer} from "../interfaces/IMailer";
 import {IBaseContext} from "../interfaces/IContext";
+import {ISignInUserRes} from "../types/api/responses";
 
 export class Mailer implements IMailer {
   private ctx: IBaseContext;
@@ -9,14 +9,14 @@ export class Mailer implements IMailer {
     this.ctx = ctx;
   }
 
-  sendWelcomeEmail(user: Partial<IUserRecord>) {
+  sendWelcomeEmail(user: Partial<ISignInUserRes>) {
     /**
      * @TODO Call Mailchimp/Sendgrid or whatever
      */
     return {delivered: 1, status: "ok"};
   }
 
-  startEmailSequence(sequence: string, user: Partial<IUserRecord>) {
+  startEmailSequence(sequence: string, user: Partial<ISignInUserRes>) {
     if (!user.email) {
       throw new Error("No email provided");
     }

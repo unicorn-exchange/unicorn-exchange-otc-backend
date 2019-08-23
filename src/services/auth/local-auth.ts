@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
 import {randomBytes} from "crypto";
-import {ISignUpUserInput, IUserRecord} from "../../interfaces/IUser";
 import {IAuth} from "../../interfaces/IAuth";
 import {IBaseContext} from "../../interfaces/IContext";
 import {Sequelize} from "sequelize-typescript";
-import {UserModel} from "../../models/user.model";
-import {Enum} from "../../enum/enum";
+import {UserModel} from "../../types/models/user.model";
+import {Enums} from "../../types/enums/enums";
+import {ISignUpUserReq} from "../../types/api/requests";
+import {ISignInUserRes} from "../../types/api/responses";
 //
 // @Service()
 // export default class AuthService {
@@ -132,14 +133,14 @@ export class LocalAuth implements IAuth {
     this.db = db;
   }
 
-  signUp(user: ISignUpUserInput): Promise<{user: any; token: string}> {
+  signUp(user: ISignUpUserReq): Promise<{user: any; token: string}> {
     const salt = randomBytes(32);
     return argon2
       .hash(user.password, {salt})
       .then(hashedPassword => {
         return UserModel.create({
           ...user,
-          salt: salt.toString(Enum.Hex),
+          salt: salt.toString(Enums.Hex),
           password: hashedPassword,
         });
       })
@@ -153,7 +154,7 @@ export class LocalAuth implements IAuth {
       });
   }
 
-  signIn(email: string, password: string): Promise<{user: IUserRecord; token: string}> {
+  signIn(email: string, password: string): Promise<{user: ISignInUserRes; token: string}> {
     return (
       UserModel.findOne({where: {email}})
       // @ts-ignore

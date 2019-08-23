@@ -1,7 +1,6 @@
 import {mockBaseCtx, mockEnv} from "../test_utils";
-import {createDB} from "../../src/services/db";
-import {UserModel} from "../../src/models/user.model";
-import {initModels} from "../../src/models";
+import {createDB, initModels} from "../../src/services/db";
+import {UserModel} from "../../src/types/models/user.model";
 
 const db = createDB(mockBaseCtx);
 

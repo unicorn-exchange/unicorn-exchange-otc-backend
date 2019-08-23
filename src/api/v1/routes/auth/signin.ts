@@ -1,7 +1,7 @@
-import Joi, {ValidationError} from "@hapi/joi";
-import {ICommonResponse} from "../../../../types/api-doc";
-import {ISignInUserInput} from "../../../../interfaces/IUser";
+import Joi from "@hapi/joi";
 import {IAuth} from "../../../../interfaces/IAuth";
+import {ISignInRes} from "../../../../types/api/responses";
+import {ISignInUserReq} from "../../../../types/api/requests";
 
 export const validationScheme = Joi.object().keys({
   email: Joi.string()
@@ -10,12 +10,7 @@ export const validationScheme = Joi.object().keys({
   password: Joi.string().required(),
 });
 
-export interface ISignInResponse extends ICommonResponse {
-  errors: Array<ValidationError>;
-  token?: string;
-}
-
-export async function signInCtr(auth: IAuth, user: ISignInUserInput): Promise<ISignInResponse> {
+export async function signInCtr(auth: IAuth, user: ISignInUserReq): Promise<ISignInRes> {
   const result = validationScheme.validate(user);
   if (result.error) return {ok: false, errors: [result.error]};
 

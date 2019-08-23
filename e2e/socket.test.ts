@@ -1,7 +1,7 @@
 import {initSocket} from "../src/socket";
 import express from "express";
 import SocketIOClient from "socket.io-client";
-import {Events} from "../src/enum/events";
+import {Events} from "../src/types/enums/events";
 import {mockEnv} from "../tests/test_utils";
 
 const app = express();

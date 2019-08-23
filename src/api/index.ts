@@ -1,6 +1,6 @@
 import {Application} from "express";
 import RestypedRouter from "restyped-express-async-middleware";
-import {APIDoc} from "../types/api-doc";
+import {APIDoc} from "../types/api/api-doc";
 import {STATUS, statusCtr} from "./routes/status";
 
 export function loadCommonAPI(app: Application) {

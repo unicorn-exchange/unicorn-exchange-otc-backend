@@ -1,12 +1,13 @@
-import {ISignUpUserInput, IUserRecord} from "./IUser";
+import {ISignUpUserReq} from "../types/api/requests";
+import {ISignInUserRes} from "../types/api/responses";
 
 interface IAuthResponse {
-  user?: IUserRecord;
+  user?: ISignInUserRes;
   token?: string;
 }
 
 export interface IAuth {
   signIn(email: string, password: string): Promise<IAuthResponse>;
 
-  signUp(user: ISignUpUserInput): Promise<IAuthResponse>;
+  signUp(user: ISignUpUserReq): Promise<IAuthResponse>;
 }

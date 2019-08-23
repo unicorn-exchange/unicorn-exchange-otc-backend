@@ -1,6 +1,6 @@
 import socketIO, {Socket} from "socket.io";
 import {Server} from "http";
-import {Events} from "../enum/events";
+import {Events} from "../types/enums/events";
 
 export function initSocket(server: Server) {
   const io = socketIO(server);

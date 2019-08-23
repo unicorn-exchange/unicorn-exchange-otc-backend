@@ -1,7 +1,6 @@
 import {mockBaseCtx, mockEnv, mockUserValid} from "../../test_utils";
-import {createDB} from "../../../src/services/db";
+import {createDB, initModels} from "../../../src/services/db";
 import {LocalAuth} from "../../../src/services/auth/local-auth";
-import {initModels} from "../../../src/models";
 import {Transaction} from "sequelize";
 
 const db = createDB(mockBaseCtx);

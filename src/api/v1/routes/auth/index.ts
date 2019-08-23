@@ -2,10 +2,7 @@ import {Router} from "express";
 import {signUpCtr} from "./signup";
 import {signInCtr} from "./signin";
 import RestypedRouter from "restyped-express-async-middleware";
-import {APIV1Doc} from "../../../../types/api-v1-doc";
-
-export const AUTH_SIGN_UP = "/auth/sign-up";
-export const AUTH_SIGN_IN = "/auth/sign-in";
+import {APIV1Doc, AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../../../types/api/api-v1-doc";
 
 export function authRouter(parentRouter: Router) {
   const router = RestypedRouter<APIV1Doc>(parentRouter);

@@ -1,10 +1,18 @@
-import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../api/v1/routes/auth";
-import {ISignInUserInput, ISignUpUserInput, IUserRecord, IUserWithToken} from "../interfaces/IUser";
-import {ISignUpResponse} from "../api/v1/routes/auth/signup";
-import {INFO} from "../api/v1/routes/info";
-import {ICommonResponse} from "./api-doc";
-import {ISignInResponse} from "../api/v1/routes/auth/signin";
-import {USERS_ME} from "../api/v1/routes/users";
+import {
+  ICommonResponse,
+  IGlobalSettingsRes,
+  ISignInRes,
+  ISignInUserRes,
+  ISignInUserWithTokenRes,
+  ISignUpRes,
+} from "./responses";
+import {ISignInUserReq, ISignUpUserReq} from "./requests";
+
+export const USERS_ME = "/users/me";
+export const AUTH_SIGN_UP = "/auth/sign-up";
+export const AUTH_SIGN_IN = "/auth/sign-in";
+export const INFO = "/info";
+export const GLOBAL_SETTINGS = "/global-settings";
 
 export interface APIV1Doc {
   [INFO]: {
@@ -15,22 +23,29 @@ export interface APIV1Doc {
 
   [AUTH_SIGN_UP]: {
     POST: {
-      body: ISignUpUserInput;
-      response: ISignUpResponse;
+      body: ISignUpUserReq;
+      response: ISignUpRes;
     };
   };
 
   [AUTH_SIGN_IN]: {
     POST: {
-      body: ISignInUserInput;
-      response: ISignInResponse;
+      body: ISignInUserReq;
+      response: ISignInRes;
     };
   };
 
   [USERS_ME]: {
     GET: {
-      head: IUserWithToken;
-      response: IUserRecord;
+      head: ISignInUserWithTokenRes;
+      response: ISignInUserRes;
+    };
+  };
+
+  [GLOBAL_SETTINGS]: {
+    GET: {
+      head: ISignInUserWithTokenRes;
+      response: IGlobalSettingsRes;
     };
   };
 

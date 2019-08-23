@@ -1,4 +1,4 @@
-import {ICommonResponse} from "../types/api-doc";
+import {ICommonResponse} from "../types/api/responses";
 
 export interface ISystemError {
   error: string;

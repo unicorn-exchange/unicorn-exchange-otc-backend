@@ -1,7 +1,7 @@
 import {IEnv} from "../src/env";
-import {ISignUpUserInput} from "../src/interfaces/IUser";
 import {IBaseContext} from "../src/interfaces/IContext";
 import {defaultLogger} from "../src/utils/logger";
+import {ISignUpUserReq} from "../src/types/api/requests";
 
 interface IEnvTest extends IEnv {
   SQLITE_STORAGE: string;
@@ -18,13 +18,13 @@ export const mockEnv: IEnvTest = {
   PORT: 3000,
 };
 
-export const mockUserInvalid: ISignUpUserInput = {
+export const mockUserInvalid: ISignUpUserReq = {
   email: "invalid",
   password: "invalid",
   username: "invalid",
 };
 
-export const mockUserValid: ISignUpUserInput = {
+export const mockUserValid: ISignUpUserReq = {
   email: "test1@google.com",
   password: "password1",
   username: "username1",

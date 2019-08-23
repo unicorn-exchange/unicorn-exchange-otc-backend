@@ -1,6 +1,6 @@
 import {IErrorReporter, ISystemError} from "../interfaces/IErrorReporter";
-import {ICommonResponse} from "../types/api-doc";
 import {IBaseContext} from "../interfaces/IContext";
+import {ICommonResponse} from "../types/api/responses";
 
 export class ErrorReporter implements IErrorReporter {
   private ctx: IBaseContext;

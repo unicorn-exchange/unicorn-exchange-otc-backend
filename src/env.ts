@@ -1,6 +1,6 @@
 import {config} from "dotenv";
 import path from "path";
-import {ENV_VARIABLES} from "./enum/environments";
+import {ENV_VARIABLES} from "./types/enums/environments";
 
 process.env.NODE_ENV = process.env.NODE_ENV || ENV_VARIABLES.DEVELOPMENT;
 

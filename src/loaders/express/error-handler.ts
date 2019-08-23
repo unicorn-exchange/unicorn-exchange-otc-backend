@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {ExpressError} from "../../types/express/error";
-import {Errors} from "../../enum/errors";
+import {Errors} from "../../types/enums/errors";
 
 // Catch 404 and forward to error handler
 export function notFoundErrorHandler(req: Request, res: Response, next: NextFunction) {

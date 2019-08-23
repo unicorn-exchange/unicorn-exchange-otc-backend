@@ -1,6 +1,4 @@
-import {ICommonResponse} from "../../types/api-doc";
-
-export const STATUS = "/status";
+import {ICommonResponse} from "../../types/api/responses";
 
 export function statusCtr(): ICommonResponse {
   return {ok: true, serverTime: 123};

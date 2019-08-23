@@ -1,10 +1,6 @@
-import {STATUS} from "../api/routes/status";
+import {ICommonResponse} from "./responses";
 
-export interface ICommonResponse {
-  ok: boolean;
-  serverTime?: number;
-  description?: string;
-}
+export const STATUS = "/status";
 
 export interface APIDoc {
   [STATUS]: {

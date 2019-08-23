@@ -5888,6 +5888,10 @@ underscore@^1.7.0:
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
   integrity sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==
 
+"unicorn-types@https://github.com/unicorn-exchange/unicorn-exchange-types":
+  version "0.0.0"
+  resolved "https://github.com/unicorn-exchange/unicorn-exchange-types#892739760a09f62f7bc46fb6da74bc2dedfcd64d"
+
 union-value@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.1.tgz#0b6fe7b835aecda61c6ea4d4f02c14221e109847"

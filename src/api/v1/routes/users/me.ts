@@ -10,8 +10,8 @@
 //   });
 // };
 
-import {IUserRecord} from "../../../../interfaces/IUser";
+import {ISignInUserRes} from "../../../../types/api/responses";
 
-export function meCtr(token: string): IUserRecord {
+export function meCtr(token: string): ISignInUserRes {
   return {email: "", id: 0, password: "", username: ""};
 }
