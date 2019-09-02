@@ -1,6 +1,6 @@
 import {Router} from "express";
-import {signUpCtr} from "./signup";
-import {signInCtr} from "./signin";
+import {signUpCtr} from "./sign-up";
+import {signInCtr} from "./sign-in";
 import RestypedRouter from "restyped-express-async-middleware";
 import {APIV1Doc, AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../../../types/api/api-v1-doc";
 

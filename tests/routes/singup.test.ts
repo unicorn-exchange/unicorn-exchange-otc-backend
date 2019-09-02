@@ -1,6 +1,6 @@
 import {LocalAuth} from "../../src/services/auth/local-auth";
 import {mockBaseCtx, mockUserInvalid, mockUserValid} from "../test_utils";
-import {signUpCtr} from "../../src/api/v1/routes/auth/signup";
+import {signUpCtr} from "../../src/api/v1/routes/auth/sign-up";
 import {createDB} from "../../src/services/db";
 
 const db = createDB(mockBaseCtx);

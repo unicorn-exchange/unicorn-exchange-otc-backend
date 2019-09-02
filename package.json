@@ -132,8 +132,8 @@
     "socket.io-client": "^2.2.0",
     "sqlite3": "^4.0.9",
     "typedi": "^0.8.0",
-    "winston": "^3.2.1",
-    "unicorn-types": "https://github.com/unicorn-exchange/unicorn-exchange-types"
+    "unicorn-types": "https://github.com/unicorn-exchange/unicorn-exchange-types#1.0.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",

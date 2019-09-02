@@ -1,4 +1,4 @@
-import {signInCtr} from "../../src/api/v1/routes/auth/signin";
+import {signInCtr} from "../../src/api/v1/routes/auth/sign-in";
 import {LocalAuth} from "../../src/services/auth/local-auth";
 import {mockBaseCtx, mockUserInvalid} from "../test_utils";
 import {createDB} from "../../src/services/db";

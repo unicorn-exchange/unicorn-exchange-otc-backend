@@ -1,15 +1,30 @@
-import {Column, DataType, Model, Table} from "sequelize-typescript";
+import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {CurrencyModel} from "./currency.model";
+import {UserModel} from "./user.model";
+import {CountryModel} from "./country.model";
+import {PaymentMethodModel} from "./payment-method.model";
 
 @Table({modelName: "orders"})
 export class OrderModel extends Model<OrderModel> {
-  @Column(DataType.UUID) // Foreign key to user
-  owner!: number;
+  @ForeignKey(() => UserModel)
+  @Column(DataType.INTEGER)
+  ownerId!: number;
 
-  @Column(DataType.UUID) // Foreign key to currency table
-  buyCurrency!: string;
+  @ForeignKey(() => CurrencyModel)
+  @Column(DataType.INTEGER)
+  buyCurrencyId!: number;
 
-  @Column(DataType.UUID) // Foreign key to currency table
-  sellCurrency!: string;
+  @ForeignKey(() => CurrencyModel)
+  @Column(DataType.INTEGER)
+  sellCurrencyId!: number;
+
+  @ForeignKey(() => CountryModel)
+  @Column(DataType.INTEGER)
+  countryId!: number;
+
+  @ForeignKey(() => PaymentMethodModel)
+  @Column(DataType.INTEGER)
+  paymentMethodId!: number;
 
   @Column(DataType.BIGINT)
   buyAmount!: bigint;

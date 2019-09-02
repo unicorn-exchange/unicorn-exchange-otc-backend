@@ -1,6 +1,6 @@
 import {
   ICommonResponse,
-  IGlobalSettingsRes,
+  ISettingsCommonRes,
   ISignInRes,
   ISignInUserRes,
   ISignInUserWithTokenRes,
@@ -12,7 +12,7 @@ export const USERS_ME = "/users/me";
 export const AUTH_SIGN_UP = "/auth/sign-up";
 export const AUTH_SIGN_IN = "/auth/sign-in";
 export const INFO = "/info";
-export const GLOBAL_SETTINGS = "/global-settings";
+export const SETTINGS_COMMON = "/settings/common";
 
 export interface APIV1Doc {
   [INFO]: {
@@ -42,10 +42,10 @@ export interface APIV1Doc {
     };
   };
 
-  [GLOBAL_SETTINGS]: {
+  [SETTINGS_COMMON]: {
     GET: {
       head: ISignInUserWithTokenRes;
-      response: IGlobalSettingsRes;
+      response: ISettingsCommonRes;
     };
   };
 

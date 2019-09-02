@@ -1,4 +1,5 @@
-import {Column, DataType, Model, Table} from "sequelize-typescript";
+import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {CryptoAccountModel} from "./crypto-account.model";
 
 @Table({modelName: "crypto_keys"})
 export class CryptoKeyModel extends Model<CryptoKeyModel> {
@@ -17,6 +18,7 @@ export class CryptoKeyModel extends Model<CryptoKeyModel> {
   @Column(DataType.STRING)
   isCustomKey!: string;
 
-  @Column(DataType.NUMBER) // Foreign key to crypto account
+  @ForeignKey(() => CryptoAccountModel)
+  @Column(DataType.INTEGER)
   cryptoAccountId!: number;
 }

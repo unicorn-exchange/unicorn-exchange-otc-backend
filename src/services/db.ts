@@ -10,6 +10,9 @@ import {CryptoAccountModel} from "../types/models/crypto-account.model";
 import {CryptoKeyModel} from "../types/models/crypto-key.model";
 import {OrderModel} from "../types/models/order.model";
 import {IEnv} from "../env";
+import {CountryModel} from "../types/models/country.model";
+import {CurrencyModel} from "../types/models/currency.model";
+import {PaymentMethodModel} from "../types/models/payment-method.model";
 
 export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
   const db = createDB(ctx);
@@ -33,10 +36,19 @@ export function createDB(ctx: IBaseContext): Sequelize {
     dialect: env.DB_DIALECT ? env.DB_DIALECT : "sqlite",
     storage,
   });
-  sequelize.addModels([BlockchainModel, CryptoAccountModel, CryptoKeyModel, OrderModel, UserModel]);
+  sequelize.addModels([
+    BlockchainModel,
+    CountryModel,
+    CryptoAccountModel,
+    CryptoKeyModel,
+    CurrencyModel,
+    OrderModel,
+    PaymentMethodModel,
+    UserModel,
+  ]);
   return sequelize;
 }
 
 export function initModels(db: Sequelize, env: IEnv): Promise<Sequelize> {
-  return db.sync({force: false});
+  return db.sync({force: true});
 }
