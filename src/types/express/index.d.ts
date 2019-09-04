@@ -10,4 +10,8 @@ declare global {
       token: string;
     }
   }
+
+  interface Promise<T> {
+    readonly [Symbol.toStringTag]?: string;
+  }
 }

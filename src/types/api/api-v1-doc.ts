@@ -1,23 +1,32 @@
 import {
-  ICommonResponse,
+  ICommonRes,
   ISettingsCommonRes,
   ISignInRes,
   ISignInUserRes,
   ISignInUserWithTokenRes,
   ISignUpRes,
 } from "./responses";
-import {ISignInUserReq, ISignUpUserReq} from "./requests";
+import {IOrdersCreateReq, ISignInUserReq, ISignUpUserReq} from "./requests";
 
 export const USERS_ME = "/users/me";
+
+// Auth
 export const AUTH_SIGN_UP = "/auth/sign-up";
 export const AUTH_SIGN_IN = "/auth/sign-in";
-export const INFO = "/info";
+
+// Settings
+export const SETTINGS = "/settings";
 export const SETTINGS_COMMON = "/settings/common";
 
+// Orders
+export const ORDERS = "/orders";
+export const ORDERS_CREATE = "/orders/create";
+
 export interface APIV1Doc {
-  [INFO]: {
+  [USERS_ME]: {
     GET: {
-      response: ICommonResponse;
+      head: ISignInUserWithTokenRes;
+      response: ISignInUserRes;
     };
   };
 
@@ -35,10 +44,9 @@ export interface APIV1Doc {
     };
   };
 
-  [USERS_ME]: {
+  [SETTINGS]: {
     GET: {
-      head: ISignInUserWithTokenRes;
-      response: ISignInUserRes;
+      response: ICommonRes;
     };
   };
 
@@ -49,32 +57,16 @@ export interface APIV1Doc {
     };
   };
 
-  // "/auth/sign-in": {
-  //   // Route name (without prefix, if you have one)
-  //   POST: {
-  //     // Any valid HTTP method
-  //     query: {
-  //       // Query string params (e.g. /me?includeProfilePics=true)
-  //       includeProfilePics?: boolean;
-  //     };
-  //     // response: User[]; // JSON response
-  //   };
-  // };
+  [ORDERS]: {
+    GET: {
+      response: ICommonRes;
+    };
+  };
 
-  // "/user/:id/send-message": {
-  //   POST: {
-  //     params: {
-  //       // Inline route params
-  //       id: string;
-  //     };
-  //     body: {
-  //       // JSON request body
-  //       message: string;
-  //     };
-  //     response: {
-  //       // JSON response
-  //       success: boolean;
-  //     };
-  //   };
-  // };
+  [ORDERS_CREATE]: {
+    POST: {
+      body: IOrdersCreateReq;
+      response: ICommonRes;
+    };
+  };
 }

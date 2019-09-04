@@ -1,6 +1,6 @@
 import {IErrorReporter, ISystemError} from "../interfaces/IErrorReporter";
 import {IBaseContext} from "../interfaces/IContext";
-import {ICommonResponse} from "../types/api/responses";
+import {ICommonRes} from "../types/api/responses";
 
 export class ErrorReporter implements IErrorReporter {
   private ctx: IBaseContext;
@@ -9,7 +9,8 @@ export class ErrorReporter implements IErrorReporter {
     this.ctx = ctx;
   }
 
-  async report(err: ISystemError): Promise<ICommonResponse> {
+  async report(err: ISystemError): Promise<ICommonRes> {
+    this.ctx.logger.silly(err);
     return {ok: true};
   }
 }

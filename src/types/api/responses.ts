@@ -1,47 +1,53 @@
-import {ISignUpUserReq} from "./requests";
+import {IOrdersCreateReq, ISignUpUserReq} from "./requests";
 import {ValidationError} from "@hapi/joi";
 
-export interface ICommonResponse {
+export interface ICommonRes {
   ok: boolean;
   serverTime?: number;
   description?: string;
+}
+
+export interface IValidationErrorsRes {
+  errors: Array<ValidationError>;
+}
+
+export interface ICommonDBInstance {
+  id?: number;
 }
 
 export interface ISignInUserWithTokenRes {
   token: string;
 }
 
-export interface ISignInUserRes extends ISignUpUserReq {
-  id?: number;
+export interface ISignInUserRes extends ISignUpUserReq, ICommonDBInstance {
 }
 
-export interface ICryptoCurrencyRes {
-  id: number;
+export interface ICryptoCurrencyRes extends ICommonDBInstance {
   title: string;
 }
 
-export interface ICountryRes {
-  id: number;
+export interface ICountryRes extends ICommonDBInstance {
   title: string;
 }
 
-export interface IPaymentMethodRes {
-  id: number;
+export interface IPaymentMethodRes extends ICommonDBInstance {
   title: string;
 }
 
-export interface ISettingsCommonRes extends ICommonResponse {
+export interface ISettingsCommonRes extends ICommonRes {
   cryptoCurrencies: ICryptoCurrencyRes[];
   countries: ICountryRes[];
   paymentMethods: IPaymentMethodRes[];
 }
 
-export interface ISignUpRes extends ICommonResponse {
-  errors: Array<ValidationError>;
+export interface ISignUpRes extends ICommonRes, IValidationErrorsRes {
   token?: string;
 }
 
-export interface ISignInRes extends ICommonResponse {
-  errors: Array<ValidationError>;
+export interface ISignInRes extends ICommonRes, IValidationErrorsRes {
   token?: string;
+}
+
+export interface IOrdersCreateRes extends ICommonRes, IValidationErrorsRes, ICommonDBInstance {
+  data?: IOrdersCreateReq;
 }

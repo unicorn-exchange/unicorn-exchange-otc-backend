@@ -157,7 +157,7 @@ export class LocalAuth implements IAuth {
   signIn(email: string, password: string): Promise<{user: ISignInUserRes; token: string}> {
     return (
       UserModel.findOne({where: {email}})
-      // @ts-ignore
+      // @ts-ignore TODO: Fix typing error
         .then((userRecord: UserModel) => {
           if (!userRecord) {
             throw new Error("User not registered");

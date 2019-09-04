@@ -1,13 +1,20 @@
-import {CountryModel} from "../../../../types/models/country.model";
-import Bluebird = require("bluebird");
+import {ISettingsCommonRes} from "../../../../types/api/responses";
 
-export function settingsCommonCtr(): Bluebird<{a: boolean}> {
-  return CountryModel.findAll().then(countries => {
-    return {
-      a: true,
-      // countries: [],
-      // cryptoCurrencies: [],
-      // paymentMethods: [],
-    };
+export function settingsCommonCtr(): Promise<ISettingsCommonRes> {
+  return new Promise(resolve => {
+    resolve({
+      ok: true,
+      countries: [],
+      cryptoCurrencies: [],
+      paymentMethods: [],
+    });
   });
+  // return CountryModel.findAll().then(countries => {
+  //   return {
+  //     a: true,
+  //     countries: [],
+  //     cryptoCurrencies: [],
+  //     paymentMethods: [],
+  //   };
+  // });
 }

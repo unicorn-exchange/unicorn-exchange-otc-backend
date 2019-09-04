@@ -1,5 +1,5 @@
-import {ICommonResponse} from "../../types/api/responses";
+import {ICommonRes} from "../../types/api/responses";
 
-export function statusCtr(): ICommonResponse {
+export function statusCtr(): ICommonRes {
   return {ok: true, serverTime: 123};
 }

@@ -3,6 +3,7 @@ import {CurrencyModel} from "./currency.model";
 import {UserModel} from "./user.model";
 import {CountryModel} from "./country.model";
 import {PaymentMethodModel} from "./payment-method.model";
+import {OrdersCreateFields} from "../enums/forms/orders-create";
 
 @Table({modelName: "orders"})
 export class OrderModel extends Model<OrderModel> {
@@ -11,15 +12,24 @@ export class OrderModel extends Model<OrderModel> {
   ownerId!: number;
 
   @ForeignKey(() => CurrencyModel)
-  @Column(DataType.INTEGER)
-  buyCurrencyId!: number;
+  @Column({
+    type: DataType.INTEGER,
+    field: OrdersCreateFields.cryptoCurrencyBuyId,
+  })
+  cryptoCurrencyBuyId!: number;
 
   @ForeignKey(() => CurrencyModel)
-  @Column(DataType.INTEGER)
-  sellCurrencyId!: number;
+  @Column({
+    type: DataType.INTEGER,
+    field: OrdersCreateFields.cryptoCurrencySellId,
+  })
+  cryptoCurrencySellId!: number;
 
   @ForeignKey(() => CountryModel)
-  @Column(DataType.INTEGER)
+  @Column({
+    type: DataType.INTEGER,
+    field: OrdersCreateFields.countryId,
+  })
   countryId!: number;
 
   @ForeignKey(() => PaymentMethodModel)
@@ -35,12 +45,21 @@ export class OrderModel extends Model<OrderModel> {
   @Column(DataType.FLOAT)
   exchangeRate!: number;
 
-  @Column(DataType.BOOLEAN)
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
   isRequested!: boolean;
 
-  @Column(DataType.BOOLEAN)
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
   isProcessing!: boolean;
 
-  @Column(DataType.BOOLEAN)
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
   isPartial!: boolean;
 }

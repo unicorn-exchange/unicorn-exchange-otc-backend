@@ -3,7 +3,7 @@ import {IAuth} from "../../../../interfaces/IAuth";
 import {ISignInRes} from "../../../../types/api/responses";
 import {ISignInUserReq} from "../../../../types/api/requests";
 
-export const validationScheme = Joi.object().keys({
+const validationScheme = Joi.object().keys({
   email: Joi.string()
     .email()
     .required(),

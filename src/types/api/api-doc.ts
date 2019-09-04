@@ -1,14 +1,14 @@
-import {ICommonResponse} from "./responses";
+import {ICommonRes} from "./responses";
 
 export const STATUS = "/status";
 
 export interface APIDoc {
   [STATUS]: {
     GET: {
-      response: ICommonResponse;
+      response: ICommonRes;
     };
     HEAD: {
-      response: ICommonResponse;
+      response: ICommonRes;
     };
   };
 }
