@@ -102,7 +102,6 @@
   "author": "Santiago Quinteros",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^15.1.0",
     "agenda": "^2.0.2",
     "argon2": "^0.21.0",
     "bluebird": "^3.5.5",
@@ -132,8 +131,9 @@
     "socket.io-client": "^2.2.0",
     "sqlite3": "^4.0.9",
     "typedi": "^0.8.0",
-    "unicorn-types": "https://github.com/unicorn-exchange/unicorn-exchange-types#1.0.1",
-    "winston": "^3.2.1"
+    "unicorn-types": "https://github.com/unicorn-exchange/unicorn-exchange-types#1.0.4",
+    "winston": "^3.2.1",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",
@@ -142,7 +142,6 @@
     "@types/express": "^4.16.0",
     "@types/express-jwt": "^0.0.42",
     "@types/express-winston": "^3.0.3",
-    "@types/hapi__joi": "^15.0.2",
     "@types/jest": "^23.3.8",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/lodash": "^4.14.118",
@@ -151,7 +150,7 @@
     "@types/socket.io": "^2.1.2",
     "@types/socket.io-client": "^1.4.32",
     "@types/sqlite3": "^3.1.5",
-    "@types/validator": "^10.11.1",
+    "@types/yup": "^0.26.23",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
     "eslint": "^5.16.0",
