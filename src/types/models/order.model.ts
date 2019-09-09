@@ -3,7 +3,7 @@ import {CurrencyModel} from "./currency.model";
 import {UserModel} from "./user.model";
 import {CountryModel} from "./country.model";
 import {PaymentMethodModel} from "./payment-method.model";
-import {OrdersCreateFields} from "../enums/forms/orders-create";
+import {ordersCreateFields} from "../enums/forms/orders-create";
 
 @Table({modelName: "orders"})
 export class OrderModel extends Model<OrderModel> {
@@ -14,21 +14,21 @@ export class OrderModel extends Model<OrderModel> {
   @ForeignKey(() => CurrencyModel)
   @Column({
     type: DataType.INTEGER,
-    field: OrdersCreateFields.cryptoCurrencyBuyId,
+    field: ordersCreateFields.cryptoCurrencyBuyId,
   })
   cryptoCurrencyBuyId!: number;
 
   @ForeignKey(() => CurrencyModel)
   @Column({
     type: DataType.INTEGER,
-    field: OrdersCreateFields.cryptoCurrencySellId,
+    field: ordersCreateFields.cryptoCurrencySellId,
   })
   cryptoCurrencySellId!: number;
 
   @ForeignKey(() => CountryModel)
   @Column({
     type: DataType.INTEGER,
-    field: OrdersCreateFields.countryId,
+    field: ordersCreateFields.countryId,
   })
   countryId!: number;
 

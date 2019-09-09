@@ -6,7 +6,7 @@ import {
   ISignInUserWithTokenRes,
   ISignUpRes,
 } from "./responses";
-import {IOrdersCreateReq, ISignInUserReq, ISignUpUserReq} from "./requests";
+import {IOrdersCreateReq, IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
 
 export const USERS_ME = "/users/me";
 
@@ -59,6 +59,7 @@ export interface APIV1Doc {
 
   [ORDERS]: {
     GET: {
+      query: IOrdersReq;
       response: ICommonRes;
     };
   };

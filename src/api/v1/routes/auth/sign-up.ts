@@ -1,26 +1,28 @@
-import Joi from "@hapi/joi";
 import {IAuth} from "../../../../interfaces/IAuth";
 import {ISignUpRes} from "../../../../types/api/responses";
 import {ISignUpUserReq} from "../../../../types/api/requests";
-
-export const validationScheme = Joi.object().keys({
-  username: Joi.string().required(),
-  email: Joi.string()
-    .email()
-    .required(),
-  password: Joi.string().required(),
-});
+import {signUpValidationScheme} from "../../../../types/validators/sign-up-validator";
+import * as yup from "yup";
 
 export async function signUpCtr(auth: IAuth, user: ISignUpUserReq): Promise<ISignUpRes> {
-  const result = validationScheme.validate(user);
-  if (result.error) return {ok: false, errors: [result.error]};
-
-  return auth
-    .signUp(user)
-    .then(({user, token}) => {
-      return {ok: true, user, token, errors: []};
+  return yup
+    .object()
+    .shape(signUpValidationScheme)
+    .isValid(user)
+    .then(() => {
+      return auth.signUp(user).then(({user, token}) => {
+        return {
+          ok: true,
+          errors: [],
+          user,
+          token,
+        };
+      });
     })
     .catch(err => {
-      return {ok: false, errors: [err]};
+      return {
+        ok: false,
+        errors: [err],
+      };
     });
 }

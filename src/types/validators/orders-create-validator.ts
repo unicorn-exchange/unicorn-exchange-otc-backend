@@ -1,18 +1,18 @@
-import {OrdersCreateFields} from "../enums/forms/orders-create";
+import {ordersCreateFields} from "../enums/forms/orders-create";
 import * as yup from "yup";
 
 export const ordersCreateValidationScheme = {
-  [OrdersCreateFields.countryId]: yup.number().required(),
-  [OrdersCreateFields.cryptoCurrencySellId]: yup.number().required(),
-  [OrdersCreateFields.cryptoCurrencySellPrice]: yup.string().required(),
-  [OrdersCreateFields.cryptoCurrencyBuyId]: yup.number().required(),
-  [OrdersCreateFields.cryptoCurrencyBuyPrice]: yup.string().required(),
-  [OrdersCreateFields.paymentMethodId]: yup.number().required(),
-  [OrdersCreateFields.bankName]: yup.string().required(),
-  [OrdersCreateFields.marginProfit]: yup.string().required(),
-  [OrdersCreateFields.isAutoAdjustTransactionLimit]: yup.string().required(),
-  [OrdersCreateFields.termsOfTrade]: yup.string().required(),
-  [OrdersCreateFields.isVerifiedUsersOnly]: yup.string().required(),
-  [OrdersCreateFields.isTrustedUsersOnly]: yup.string().required(),
-  [OrdersCreateFields.isIdentifyUsersBeforeContinueTrade]: yup.string().required(),
+  [ordersCreateFields.countryId]: yup.number().required(),
+  [ordersCreateFields.cryptoCurrencySellId]: yup.number().required(),
+  [ordersCreateFields.cryptoCurrencySellPrice]: yup.string().required(),
+  [ordersCreateFields.cryptoCurrencyBuyId]: yup.number().required(),
+  [ordersCreateFields.cryptoCurrencyBuyPrice]: yup.string().required(),
+  [ordersCreateFields.paymentMethodId]: yup.number().required(),
+  [ordersCreateFields.bankName]: yup.string().required(),
+  [ordersCreateFields.marginProfit]: yup.string().required(),
+  [ordersCreateFields.isAutoAdjustTransactionLimit]: yup.string().required(),
+  [ordersCreateFields.termsOfTrade]: yup.string().required(),
+  [ordersCreateFields.isVerifiedUsersOnly]: yup.string().required(),
+  [ordersCreateFields.isTrustedUsersOnly]: yup.string().required(),
+  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: yup.string().required(),
 };

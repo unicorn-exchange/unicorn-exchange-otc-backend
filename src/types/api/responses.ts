@@ -1,5 +1,5 @@
 import {IOrdersCreateReq, ISignUpUserReq} from "./requests";
-import {ValidationError} from "@hapi/joi";
+import {ValidationError} from "yup";
 
 export interface ICommonRes {
   ok: boolean;
@@ -19,8 +19,7 @@ export interface ISignInUserWithTokenRes {
   token: string;
 }
 
-export interface ISignInUserRes extends ISignUpUserReq, ICommonDBInstance {
-}
+export interface ISignInUserRes extends ISignUpUserReq, ICommonDBInstance {}
 
 export interface ICryptoCurrencyRes extends ICommonDBInstance {
   title: string;

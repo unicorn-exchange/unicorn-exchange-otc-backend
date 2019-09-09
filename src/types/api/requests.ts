@@ -1,20 +1,27 @@
-import {OrdersCreateFields} from "../enums/forms/orders-create";
+import {ordersCreateFields} from "../enums/forms/orders-create";
 
 export interface IOrdersCreateReq {
-  [OrdersCreateFields.countryId]: number;
-  [OrdersCreateFields.cryptoCurrencySellId]: number;
-  [OrdersCreateFields.cryptoCurrencySellPrice]: string;
-  [OrdersCreateFields.cryptoCurrencyBuyId]: number;
-  [OrdersCreateFields.cryptoCurrencyBuyPrice]: string;
-  [OrdersCreateFields.paymentMethodId]: number;
-  [OrdersCreateFields.bankName]: string;
-  [OrdersCreateFields.marginProfit]: string;
-  [OrdersCreateFields.isAutoAdjustTransactionLimit]: string;
-  [OrdersCreateFields.termsOfTrade]: string;
-  [OrdersCreateFields.isVerifiedUsersOnly]: string;
-  [OrdersCreateFields.isTrustedUsersOnly]: string;
-  [OrdersCreateFields.isIdentifyUsersBeforeContinueTrade]: string;
+  [ordersCreateFields.countryId]: number;
+  [ordersCreateFields.cryptoCurrencySellId]: number;
+  [ordersCreateFields.cryptoCurrencySellPrice]: string;
+  [ordersCreateFields.cryptoCurrencyBuyId]: number;
+  [ordersCreateFields.cryptoCurrencyBuyPrice]: string;
+  [ordersCreateFields.paymentMethodId]: number;
+  [ordersCreateFields.bankName]: string;
+  [ordersCreateFields.marginProfit]: string;
+  [ordersCreateFields.isAutoAdjustTransactionLimit]: string;
+  [ordersCreateFields.termsOfTrade]: string;
+  [ordersCreateFields.isVerifiedUsersOnly]: string;
+  [ordersCreateFields.isTrustedUsersOnly]: string;
+  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: string;
 }
+
+export interface IPagination {
+  offset?: number;
+  limit?: number;
+}
+
+export interface IOrdersReq extends IPagination {}
 
 export interface ISignInUserReq {
   email: string;

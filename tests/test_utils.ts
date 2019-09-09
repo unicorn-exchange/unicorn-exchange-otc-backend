@@ -2,7 +2,7 @@ import {IEnv} from "../src/env";
 import {IBaseContext} from "../src/interfaces/IContext";
 import {defaultLogger} from "../src/utils/logger";
 import {IOrdersCreateReq, ISignUpUserReq} from "../src/types/api/requests";
-import {OrdersCreateFields} from "../src/types/enums/forms/orders-create";
+import {ordersCreateFields} from "../src/types/enums/forms/orders-create";
 
 interface IEnvTest extends IEnv {
   SQLITE_STORAGE: string;
@@ -32,19 +32,19 @@ export const mockUserValid: ISignUpUserReq = {
 };
 
 export const mockOrderValid: IOrdersCreateReq = {
-  [OrdersCreateFields.countryId]: 1,
-  [OrdersCreateFields.cryptoCurrencySellId]: 1,
-  [OrdersCreateFields.cryptoCurrencySellPrice]: "string",
-  [OrdersCreateFields.cryptoCurrencyBuyId]: 1,
-  [OrdersCreateFields.cryptoCurrencyBuyPrice]: "string",
-  [OrdersCreateFields.paymentMethodId]: 1,
-  [OrdersCreateFields.bankName]: "string",
-  [OrdersCreateFields.marginProfit]: "string",
-  [OrdersCreateFields.isAutoAdjustTransactionLimit]: "string",
-  [OrdersCreateFields.termsOfTrade]: "string",
-  [OrdersCreateFields.isVerifiedUsersOnly]: "string",
-  [OrdersCreateFields.isTrustedUsersOnly]: "string",
-  [OrdersCreateFields.isIdentifyUsersBeforeContinueTrade]: "string",
+  [ordersCreateFields.countryId]: 1,
+  [ordersCreateFields.cryptoCurrencySellId]: 1,
+  [ordersCreateFields.cryptoCurrencySellPrice]: "string",
+  [ordersCreateFields.cryptoCurrencyBuyId]: 1,
+  [ordersCreateFields.cryptoCurrencyBuyPrice]: "string",
+  [ordersCreateFields.paymentMethodId]: 1,
+  [ordersCreateFields.bankName]: "string",
+  [ordersCreateFields.marginProfit]: "string",
+  [ordersCreateFields.isAutoAdjustTransactionLimit]: "string",
+  [ordersCreateFields.termsOfTrade]: "string",
+  [ordersCreateFields.isVerifiedUsersOnly]: "string",
+  [ordersCreateFields.isTrustedUsersOnly]: "string",
+  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: "string",
 };
 
 export const mockBaseCtx: IBaseContext = {

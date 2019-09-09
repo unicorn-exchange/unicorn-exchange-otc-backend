@@ -22,8 +22,7 @@
     "tabWidth": 2,
     "printWidth": 120,
     "semi": true,
-    "bracketSpacing": false,
-    "jsxBracketSameLine": true
+    "bracketSpacing": false
   },
   "jest": {
     "moduleFileExtensions": [
@@ -131,7 +130,7 @@
     "socket.io-client": "^2.2.0",
     "sqlite3": "^4.0.9",
     "typedi": "^0.8.0",
-    "unicorn-types": "https://github.com/unicorn-exchange/unicorn-exchange-types#1.0.4",
+    "unicorn-types": "https://github.com/unicorn-exchange/unicorn-exchange-types#1.0.7",
     "winston": "^3.2.1",
     "yup": "^0.27.0"
   },
@@ -150,6 +149,7 @@
     "@types/socket.io": "^2.1.2",
     "@types/socket.io-client": "^1.4.32",
     "@types/sqlite3": "^3.1.5",
+    "@types/validator": "^10.11.3",
     "@types/yup": "^0.26.23",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
