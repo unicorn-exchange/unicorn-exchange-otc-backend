@@ -2,13 +2,10 @@ import {IAuth} from "../../../../interfaces/IAuth";
 import {ISignUpRes} from "../../../../types/api/responses";
 import {ISignUpUserReq} from "../../../../types/api/requests";
 import {signUpValidationScheme} from "../../../../types/validators/sign-up-validator";
-import * as yup from "yup";
+import {validateObject} from "../../../../utils/utils";
 
 export async function signUpCtr(auth: IAuth, user: ISignUpUserReq): Promise<ISignUpRes> {
-  return yup
-    .object()
-    .shape(signUpValidationScheme)
-    .isValid(user)
+  return validateObject(user, signUpValidationScheme)
     .then(() => {
       return auth.signUp(user).then(({user, token}) => {
         return {

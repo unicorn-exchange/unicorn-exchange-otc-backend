@@ -1,6 +1,6 @@
-import {default as yup, ObjectSchemaDefinition} from "yup";
+import * as yup from "yup";
 
-export function validateObject(data: object, schema: ObjectSchemaDefinition<object>): Promise<boolean> {
+export function validateObject(data: object, schema: yup.ObjectSchemaDefinition<object>): Promise<boolean> {
   return yup
     .object()
     .shape(schema)

@@ -12,6 +12,7 @@ declare global {
   }
 
   interface Promise<T> {
-    readonly [Symbol.toStringTag]: string;
+    // @ts-ignore
+    readonly [Symbol.toStringTag]?: string;
   }
 }
