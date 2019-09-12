@@ -12,6 +12,6 @@ declare global {
   }
 
   interface Promise<T> {
-    readonly [Symbol.toStringTag]?: string;
+    readonly [Symbol.toStringTag]: string;
   }
 }
