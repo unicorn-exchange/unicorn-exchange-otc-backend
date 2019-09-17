@@ -18,7 +18,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "declaration": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "strictNullChecks": true,
     "noUnusedLocals": false,
     "baseUrl": ".",
@@ -30,6 +30,7 @@
   },
   "include": [
     "./src/**/*",
+    "./data/**/*",
     "./config",
     "./tests/**/*"
   ],

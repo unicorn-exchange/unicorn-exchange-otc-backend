@@ -5,7 +5,7 @@ import {initLoaders} from "./loaders";
 import {initMiddlewares} from "./api/middlewares";
 import {initServices} from "./services";
 import {initSocket} from "./socket";
-import {initDBConnection, initModels} from "./services/db";
+import {initDBConnection, initDefaultData, initModels} from "./services/db";
 import {IBaseContext} from "./interfaces/IContext";
 
 const app = express();
@@ -18,6 +18,7 @@ const baseCtx: IBaseContext = {
 
 initDBConnection(baseCtx)
   .then(db => initModels(db, env))
+  .then(db => initDefaultData(db, env))
   .then(db => initServices(baseCtx, db))
   .then(services => {
     app.ctx = {

@@ -13,6 +13,10 @@ import {IEnv} from "../env";
 import {CountryModel} from "../types/models/country.model";
 import {CurrencyModel} from "../types/models/currency.model";
 import {PaymentMethodModel} from "../types/models/payment-method.model";
+import {countries} from "../../data/countries";
+import {blockchains} from "../../data/blockchains";
+import {paymentMethods} from "../../data/payment-methods";
+import {BulkCreateOptions} from "sequelize";
 
 export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
   const db = createDB(ctx);
@@ -51,4 +55,27 @@ export function createDB(ctx: IBaseContext): Sequelize {
 
 export function initModels(db: Sequelize, env: IEnv): Promise<Sequelize> {
   return db.sync({force: true});
+}
+
+export function initDefaultData(db: Sequelize, env: IEnv): Promise<Sequelize> {
+  const options: BulkCreateOptions = {
+    fields: ["id", "title"],
+    updateOnDuplicate: ["title"],
+  };
+  let truncateFn = Promise.all([Promise.resolve()]); // TODO: Find better alternatives
+  if (env.DB_DIALECT === "sqlite") {
+    delete options.updateOnDuplicate;
+    truncateFn = Promise.all([
+      CountryModel.truncate({force: true}),
+      BlockchainModel.truncate({force: true}),
+      PaymentMethodModel.truncate({force: true}),
+    ]);
+  }
+  return truncateFn.then(() => {
+    return Promise.all([
+      CountryModel.bulkCreate(countries, options),
+      BlockchainModel.bulkCreate(blockchains, options),
+      PaymentMethodModel.bulkCreate(paymentMethods, options),
+    ]).then(() => db);
+  });
 }

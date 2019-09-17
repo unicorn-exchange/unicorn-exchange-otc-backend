@@ -41,7 +41,7 @@ export class LocalAuth implements IAuth {
 
   signIn(email: string, password: string): Promise<{user: ISignInUserRes; token: string}> {
     return UserModel.findOne({where: {email}})
-      .then((userRecord: UserModel | null) => {
+      .then(userRecord => {
         if (!userRecord) {
           throw new Error("User not found");
         }

@@ -1,7 +1,7 @@
 import jwt from "express-jwt";
 import {NextFunction, Request, Response} from "express";
-import {ExpressError} from "../../types/express/error";
 import {IAppContext} from "../../interfaces/IContext";
+import {ExpressError} from "../../interfaces/IErrorReporter";
 
 export let isAuth = function(req: Request, res: Response, next: NextFunction) {
   next(

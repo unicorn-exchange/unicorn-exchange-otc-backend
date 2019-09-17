@@ -1,4 +1,4 @@
-import {IAppContext} from "../../interfaces/IContext";
+import {IAppContext} from "./interfaces/IContext";
 
 declare global {
   namespace Express {
@@ -12,7 +12,6 @@ declare global {
   }
 
   interface Promise<T> {
-    // @ts-ignore
     readonly [Symbol.toStringTag]?: string;
   }
 }
