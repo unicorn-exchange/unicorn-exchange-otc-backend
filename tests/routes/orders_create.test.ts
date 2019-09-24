@@ -1,7 +1,7 @@
 import {mockBaseCtx, mockEnv, mockOrderValid} from "../test_utils";
 import {createDB, initModels} from "../../src/services/db";
 import {ordersCreateCtr} from "../../src/api/v1/routes/orders/create";
-import {IOrdersCreateReq} from "../../src/types/api/requests";
+import {IOrderDTO} from "../../src/types/api/dtos";
 
 const db = createDB(mockBaseCtx);
 
@@ -10,10 +10,10 @@ describe("Settings common route test", () => {
     return initModels(db, mockEnv).then(async () => {
       const res = await ordersCreateCtr(mockOrderValid);
       expect(res.ok).toBeTruthy();
-      expect(res.data).toBeDefined();
+      expect(res.payload).toBeDefined();
       Object.keys(mockOrderValid).forEach(key => {
-        if (res.data) {
-          expect(res.data[key as keyof IOrdersCreateReq]).toEqual(mockOrderValid[key as keyof IOrdersCreateReq]);
+        if (res.payload) {
+          expect(res.payload[key as keyof IOrderDTO]).toEqual(mockOrderValid[key as keyof IOrderDTO]);
         }
       });
     });

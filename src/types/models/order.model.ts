@@ -91,6 +91,12 @@ export class OrderModel extends Model<OrderModel> {
   isTrustedUsersOnly!: boolean;
 
   @Column({
+    type: DataType.STRING,
+    field: ordersCreateFields.termsOfTrade,
+  })
+  termsOfTrade!: string;
+
+  @Column({
     type: DataType.BOOLEAN,
     field: ordersCreateFields.isIdentifyUsersBeforeContinueTrade,
   })

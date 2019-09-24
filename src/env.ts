@@ -1,11 +1,13 @@
 import {config} from "dotenv";
 import path from "path";
 import {ENV_VARIABLES} from "./types/enums/environments";
+import {Blockchains} from "./types/enums/blockchains";
 
 process.env.NODE_ENV = process.env.NODE_ENV || ENV_VARIABLES.DEVELOPMENT;
 
 export interface IEnv {
   PORT: number;
+  BLOCKCHAIN_NETWORK: string;
   IS_PRODUCTION: boolean;
   JWT_SECRET: string;
   DB_HOST: string;
@@ -17,6 +19,7 @@ export interface IEnv {
 
 class Env implements IEnv {
   PORT: number;
+  BLOCKCHAIN_NETWORK: string;
   IS_PRODUCTION: boolean;
   JWT_SECRET: string;
   DB_HOST: string;
@@ -28,6 +31,12 @@ class Env implements IEnv {
   constructor(env: NodeJS.ProcessEnv) {
     if (!env.PORT) {
       throw new Error("Application port is not defined");
+    }
+    if (
+      !env.BLOCKCHAIN_NETWORK ||
+      (env.BLOCKCHAIN_NETWORK !== Blockchains.Testnet && env.BLOCKCHAIN_NETWORK !== Blockchains.Bitcoin)
+    ) {
+      throw new Error("Blockchain network is not defined");
     }
     if (!env.JWT_SECRET) {
       throw new Error("JWT secret is not defined");
@@ -42,6 +51,7 @@ class Env implements IEnv {
       throw new Error("Database username and password are not defined");
     }
     this.PORT = parseInt(env.PORT, 10);
+    this.BLOCKCHAIN_NETWORK = env.BLOCKCHAIN_NETWORK;
     this.IS_PRODUCTION = env.NODE_ENV === ENV_VARIABLES.PRODUCTION;
     this.JWT_SECRET = env.JWT_SECRET;
     this.DB_HOST = env.DB_HOST;

@@ -1,52 +1,37 @@
-import {IOrdersCreateReq, ISignUpUserReq} from "./requests";
+import {ISignUpUserReq} from "./requests";
 import {ValidationError} from "yup";
+import {ICountryDTO, ICryptoCurrencyDTO, IDBInstance, IOrderDTO, IPaymentMethodDTO} from "./dtos";
 
 export interface ICommonRes {
   ok: boolean;
-  serverTime?: number;
-  description?: string;
-}
-
-export interface IValidationErrorsRes {
-  errors: Array<ValidationError>;
-}
-
-export interface ICommonDBInstance {
-  id?: number;
+  errors?: ValidationError[];
 }
 
 export interface ISignInUserWithTokenRes {
   token: string;
 }
 
-export interface ISignInUserRes extends ISignUpUserReq, ICommonDBInstance {}
-
-export interface ICryptoCurrencyRes extends ICommonDBInstance {
-  title: string;
-}
-
-export interface ICountryRes extends ICommonDBInstance {
-  title: string;
-}
-
-export interface IPaymentMethodRes extends ICommonDBInstance {
-  title: string;
-}
+export interface ISignInUserRes extends ISignUpUserReq, IDBInstance {}
 
 export interface ISettingsCommonRes extends ICommonRes {
-  cryptoCurrencies: ICryptoCurrencyRes[];
-  countries: ICountryRes[];
-  paymentMethods: IPaymentMethodRes[];
+  cryptoCurrencies: ICryptoCurrencyDTO[];
+  countries: ICountryDTO[];
+  paymentMethods: IPaymentMethodDTO[];
 }
 
-export interface ISignUpRes extends ICommonRes, IValidationErrorsRes {
+export interface ISignUpRes extends ICommonRes {
   token?: string;
 }
 
-export interface ISignInRes extends ICommonRes, IValidationErrorsRes {
+export interface ISignInRes extends ICommonRes {
   token?: string;
 }
 
-export interface IOrdersCreateRes extends ICommonRes, IValidationErrorsRes, ICommonDBInstance {
-  data?: IOrdersCreateReq;
+export interface IOrdersCreateRes extends ICommonRes, IDBInstance {
+  payload?: IOrderDTO;
+}
+
+export interface IOrdersRes extends ICommonRes {
+  payload?: IOrderDTO[];
+  count: number;
 }

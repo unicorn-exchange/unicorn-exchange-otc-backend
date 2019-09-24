@@ -1,12 +1,15 @@
 import {
   ICommonRes,
+  IOrdersCreateRes,
+  IOrdersRes,
   ISettingsCommonRes,
   ISignInRes,
   ISignInUserRes,
   ISignInUserWithTokenRes,
   ISignUpRes,
 } from "./responses";
-import {IOrdersCreateReq, IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
+import {IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
+import {IDBInstance, IOrderDTO} from "./dtos";
 
 export const USERS_ME = "/users/me";
 
@@ -21,6 +24,9 @@ export const SETTINGS_COMMON = "/settings/common";
 // Orders
 export const ORDERS = "/orders";
 export const ORDERS_CREATE = "/orders/create";
+export const ORDERS_REQUEST = "/orders/request";
+export const ORDERS_CONFIRM = "/orders/confirm";
+export const ORDERS_DECLINE = "/orders/decline";
 
 export interface APIV1Doc {
   [USERS_ME]: {
@@ -60,13 +66,34 @@ export interface APIV1Doc {
   [ORDERS]: {
     GET: {
       query: IOrdersReq;
-      response: ICommonRes;
+      response: IOrdersRes;
     };
   };
 
   [ORDERS_CREATE]: {
     POST: {
-      body: IOrdersCreateReq;
+      body: IOrderDTO;
+      response: IOrdersCreateRes;
+    };
+  };
+
+  [ORDERS_REQUEST]: {
+    GET: {
+      query: IDBInstance;
+      response: IOrderDTO;
+    };
+  };
+
+  [ORDERS_CONFIRM]: {
+    POST: {
+      body: IDBInstance;
+      response: ICommonRes;
+    };
+  };
+
+  [ORDERS_DECLINE]: {
+    POST: {
+      body: IDBInstance;
       response: ICommonRes;
     };
   };

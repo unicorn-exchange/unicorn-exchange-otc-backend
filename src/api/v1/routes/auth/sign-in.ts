@@ -12,7 +12,7 @@ export async function signInCtr(auth: IAuth, user: ISignInUserReq): Promise<ISig
         ok: true,
         errors: [],
         token,
-      };
+      } as ISignInRes;
     })
     .catch(err => {
       return {

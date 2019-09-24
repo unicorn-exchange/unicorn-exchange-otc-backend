@@ -13,7 +13,7 @@ export async function signUpCtr(auth: IAuth, user: ISignUpUserReq): Promise<ISig
           errors: [],
           user,
           token,
-        };
+        } as ISignUpRes;
       });
     })
     .catch(err => {
