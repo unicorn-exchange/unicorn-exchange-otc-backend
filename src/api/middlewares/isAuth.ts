@@ -1,7 +1,9 @@
-import jwt from "express-jwt";
+import jwtExpress from "express-jwt";
+import jwt from "jsonwebtoken";
 import {NextFunction, Request, Response} from "express";
 import {IAppContext} from "../../interfaces/IContext";
 import {ExpressError} from "../../interfaces/IErrorReporter";
+import {IDecodedTokenObj} from "../../interfaces/IAuth";
 
 export let isAuth = function(req: Request, res: Response, next: NextFunction) {
   next(
@@ -13,14 +15,16 @@ export let isAuth = function(req: Request, res: Response, next: NextFunction) {
   );
 };
 
-export const TOKEN_PROP = "token";
-
 export function initAuthMiddleware(ctx: IAppContext) {
-  isAuth = jwt({
+  isAuth = jwtExpress({
     secret: ctx.env.JWT_SECRET, // The _secret_ to sign the JWTs
-    userProperty: TOKEN_PROP, // Use req.token to store the JWT
+    userProperty: "token", // Use req.token to store the JWT
     getToken: getTokenFromHeader, // How to extract the JWT from the request
   });
+}
+
+export function decodeToken(token: string): IDecodedTokenObj {
+  return jwt.decode(token) as IDecodedTokenObj;
 }
 
 function getTokenFromHeader(req: Request) {

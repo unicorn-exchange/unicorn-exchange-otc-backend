@@ -11,7 +11,7 @@ interface IEnvTest extends IEnv {
 
 export const mockEnv: IEnvTest = {
   BLOCKCHAIN_NETWORK: "test",
-  DB_DIALECT: "sqlite3",
+  DB_DIALECT: "sqlite",
   DB_HOST: "",
   DB_NAME: "",
   DB_PASSWORD: "",

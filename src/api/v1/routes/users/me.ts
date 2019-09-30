@@ -1,17 +1,21 @@
-// import {Router, Request, Response} from "express";
-// import middlewares from "../../middlewares";
-// const route = Router();
-//
-// export default (app: Router) => {
-//   app.use("/users", route);
-//
-//   route.get("/me", middlewares.isAuth, middlewares.attachCurrentUser, (req: Request, res: Response) => {
-//     return res.json({user: req.currentUser}).status(200);
-//   });
-// };
-
 import {ISignInUserRes} from "../../../../types/api/responses";
+import {decodeToken} from "../../../middlewares/isAuth";
+import {UserModel} from "../../../../types/models/user.model";
 
-export function meCtr(token: string): ISignInUserRes {
-  return {email: "", id: 0, password: "", username: ""};
+export function meCtr(token?: string): Promise<ISignInUserRes> {
+  if (!token) {
+    throw new Error("ds");
+  }
+  const obj = decodeToken(token);
+  return UserModel.findById(obj.userId).then(user => {
+    if (!user) {
+      throw new Error("ds");
+    }
+    return {
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      username: user.username,
+    };
+  });
 }

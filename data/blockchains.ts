@@ -1,10 +1,15 @@
+export const enum BlockchainsIds {
+  Bitcoin = 1,
+  Ethereum,
+}
+
 export const blockchains = [
   {
-    id: 1,
+    id: BlockchainsIds.Bitcoin,
     title: "Bitcoin",
   },
   {
-    id: 2,
+    id: BlockchainsIds.Ethereum,
     title: "Ethereum",
   },
 ];

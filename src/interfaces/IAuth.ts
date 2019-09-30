@@ -6,6 +6,11 @@ interface IAuthResponse {
   token?: string;
 }
 
+export interface IDecodedTokenObj {
+  userId: number;
+  exp: number;
+}
+
 export interface IAuth {
   signIn(email: string, password: string): Promise<IAuthResponse>;
 

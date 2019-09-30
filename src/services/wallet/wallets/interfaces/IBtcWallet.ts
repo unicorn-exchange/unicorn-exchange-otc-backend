@@ -104,5 +104,5 @@ export interface IBtcWallet {
 
   fetchUnspent(address: string): Promise<Array<OutPut>>;
 
-  broadcastTx(txHex: string): Promise<Response>; // TODO
+  broadcastTx(txHex: string): Promise<any>; // TODO, change
 }

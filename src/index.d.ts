@@ -1,4 +1,5 @@
 import {IAppContext} from "./interfaces/IContext";
+import {UserModel} from "./types/models/user.model";
 
 declare global {
   namespace Express {
@@ -7,7 +8,8 @@ declare global {
     }
 
     export interface Request {
-      token: string;
+      token?: string;
+      user?: UserModel;
     }
   }
 }

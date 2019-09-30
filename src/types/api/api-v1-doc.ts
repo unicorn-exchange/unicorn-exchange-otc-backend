@@ -8,10 +8,11 @@ import {
   ISignInUserWithTokenRes,
   ISignUpRes,
 } from "./responses";
-import {IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
+import {IDepositReq, IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
 import {IDBInstance, IOrderDTO} from "./dtos";
 
 export const USERS_ME = "/users/me";
+export const USERS_DEPOSIT = "/users/deposit";
 
 // Auth
 export const AUTH_SIGN_UP = "/auth/sign-up";
@@ -33,6 +34,14 @@ export interface APIV1Doc {
     GET: {
       head: ISignInUserWithTokenRes;
       response: ISignInUserRes;
+    };
+  };
+
+  [USERS_DEPOSIT]: {
+    POST: {
+      head: ISignInUserWithTokenRes;
+      body: IDepositReq;
+      response: ICommonRes;
     };
   };
 

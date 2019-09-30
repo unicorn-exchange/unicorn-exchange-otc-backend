@@ -2,6 +2,7 @@ import {mockBaseCtx, mockEnv, mockUserValid} from "../../test_utils";
 import {createDB, initModels} from "../../../src/services/db";
 import {LocalAuth} from "../../../src/services/auth/local-auth";
 import {Transaction} from "sequelize";
+import {meCtr} from "../../../src/api/v1/routes/users/me";
 
 const db = createDB(mockBaseCtx);
 let t: Transaction;
@@ -26,6 +27,10 @@ describe("Local auth service test", () => {
       })
       .then(res => {
         expect(res.user.password).not.toBe(mockUserValid.password);
+        return meCtr(res.token).then(meRes => {
+          expect(meRes.id).toBe(res.user.id);
+          return meRes;
+        });
       });
   });
 

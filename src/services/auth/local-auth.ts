@@ -1,13 +1,12 @@
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
 import {randomBytes} from "crypto";
-import {IAuth} from "../../interfaces/IAuth";
+import {IAuth, IDecodedTokenObj} from "../../interfaces/IAuth";
 import {IBaseContext} from "../../interfaces/IContext";
 import {Sequelize} from "sequelize-typescript";
 import {UserModel} from "../../types/models/user.model";
 import {Enums} from "../../types/enums/enums";
 import {ISignUpUserReq} from "../../types/api/requests";
-import {ISignInUserRes} from "../../types/api/responses";
 
 export class LocalAuth implements IAuth {
   private ctx: IBaseContext;
@@ -18,7 +17,7 @@ export class LocalAuth implements IAuth {
     this.db = db;
   }
 
-  signUp(user: ISignUpUserReq): Promise<{user: any; token: string}> {
+  signUp(user: ISignUpUserReq) {
     const salt = randomBytes(32);
     return argon2
       .hash(user.password, {salt})
@@ -31,7 +30,7 @@ export class LocalAuth implements IAuth {
       })
       .then(userRec => {
         const token = this.generateToken(userRec);
-        return {user, token};
+        return {user: userRec, token};
       })
       .catch(err => {
         this.ctx.logger.error(err);
@@ -39,7 +38,7 @@ export class LocalAuth implements IAuth {
       });
   }
 
-  signIn(email: string, password: string): Promise<{user: ISignInUserRes; token: string}> {
+  signIn(email: string, password: string) {
     return UserModel.findOne({where: {email}})
       .then(userRecord => {
         if (!userRecord) {
@@ -61,7 +60,7 @@ export class LocalAuth implements IAuth {
       });
   }
 
-  private generateToken(user: UserModel) {
+  private generateToken(user: UserModel): string {
     const today = new Date(); // TODO: Change to moment.js
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -69,11 +68,9 @@ export class LocalAuth implements IAuth {
     this.ctx.logger.silly(`Sign JWT for userId: ${user.id}`);
     return jwt.sign(
       {
-        _id: user.id, // We are gonna use this in the middleware 'isAuth'
-        role: "manager",
-        name: "Alex",
+        userId: user.id,
         exp: exp.getTime() / 1000,
-      },
+      } as IDecodedTokenObj,
       this.ctx.env.JWT_SECRET,
     );
   }
