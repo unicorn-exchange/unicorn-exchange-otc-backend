@@ -5,13 +5,16 @@ export const signUpValidationScheme = {
   [signUpFields.username]: yup
     .string()
     .min(3)
+    .nullable()
     .required(),
   [signUpFields.email]: yup
     .string()
     .email()
+    .nullable()
     .required(),
   [signUpFields.password]: yup
     .string()
     .min(3)
+    .nullable()
     .required(),
 };

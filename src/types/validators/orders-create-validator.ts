@@ -2,17 +2,17 @@ import {ordersCreateFields} from "../enums/forms/orders-create";
 import * as yup from "yup";
 
 export const ordersCreateValidationScheme = {
-  [ordersCreateFields.countryId]: yup.number().required(),
-  [ordersCreateFields.cryptoCurrencySellId]: yup.number().required(),
+  [ordersCreateFields.countryId]: yup.number().nullable().required(),
+  [ordersCreateFields.cryptoCurrencySellId]: yup.number().nullable().required(),
   [ordersCreateFields.cryptoCurrencySellPrice]: yup.string().required(),
   [ordersCreateFields.cryptoCurrencyBuyId]: yup.number().required(),
-  [ordersCreateFields.cryptoCurrencyBuyPrice]: yup.string().required(),
-  [ordersCreateFields.paymentMethodId]: yup.number().required(),
-  [ordersCreateFields.bankName]: yup.string().required(),
+  [ordersCreateFields.cryptoCurrencyBuyPrice]: yup.string().nullable().required(),
+  [ordersCreateFields.paymentMethodId]: yup.number().nullable().required(),
+  [ordersCreateFields.bankName]: yup.string().nullable().required(),
   [ordersCreateFields.marginProfit]: yup.string().required(),
-  [ordersCreateFields.isAutoAdjustTransactionLimit]: yup.string().required(),
-  [ordersCreateFields.termsOfTrade]: yup.string().required(),
-  [ordersCreateFields.isVerifiedUsersOnly]: yup.string().required(),
-  [ordersCreateFields.isTrustedUsersOnly]: yup.string().required(),
-  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: yup.string().required(),
+  [ordersCreateFields.isAutoAdjustTransactionLimit]: yup.boolean().nullable(),
+  [ordersCreateFields.termsOfTrade]: yup.string().nullable(),
+  [ordersCreateFields.isVerifiedUsersOnly]: yup.boolean().nullable(),
+  [ordersCreateFields.isTrustedUsersOnly]: yup.boolean().nullable(),
+  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: yup.boolean().nullable(),
 };

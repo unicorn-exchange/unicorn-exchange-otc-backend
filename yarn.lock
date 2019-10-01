@@ -7359,9 +7359,9 @@ underscore@1.9.1, underscore@^1.7.0:
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
   integrity sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==
 
-"unicorn-types@https://github.com/unicorn-exchange/unicorn-exchange-types#1.0.7":
-  version "1.0.7"
-  resolved "https://github.com/unicorn-exchange/unicorn-exchange-types#a0fc2b759d92175c5bf908f079f5e6e91be8ecc6"
+"unicorn-types@https://github.com/unicorn-exchange/unicorn-exchange-types#1.1.1":
+  version "1.1.1"
+  resolved "https://github.com/unicorn-exchange/unicorn-exchange-types#0a7615ff82937a89675399615e59efa9e7f44397"
   dependencies:
     sequelize "^5.15.2"
     sequelize-typescript "^1.0.0"
