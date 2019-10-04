@@ -4,7 +4,6 @@ import path from "path";
 import {IBaseContext} from "../interfaces/IContext";
 import {UserModel} from "../types/models/user.model";
 import {ROOT} from "../../config";
-import {createNamespace} from "continuation-local-storage";
 import {BlockchainModel} from "../types/models/blockchain.model";
 import {CryptoAccountModel} from "../types/models/crypto-account.model";
 import {CryptoKeyModel} from "../types/models/crypto-key.model";
@@ -17,6 +16,9 @@ import {countries} from "../../data/countries";
 import {blockchains} from "../../data/blockchains";
 import {paymentMethods} from "../../data/payment-methods";
 import {BulkCreateOptions} from "sequelize";
+import {initPolyfills} from "../utils/polyfils";
+
+initPolyfills(global);
 
 export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
   const db = createDB(ctx);
@@ -27,8 +29,6 @@ export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
 export function createDB(ctx: IBaseContext): Sequelize {
   const {env} = ctx;
   const storage = path.join(ROOT, "./tests", mockEnv.SQLITE_STORAGE);
-  const namespace = createNamespace("transaction");
-  Sequelize.useCLS(namespace);
 
   // @ts-ignore
   const sequelize = new Sequelize({
@@ -54,7 +54,7 @@ export function createDB(ctx: IBaseContext): Sequelize {
 }
 
 export function initModels(db: Sequelize, env: IEnv): Promise<Sequelize> {
-  return db.sync({force: true});
+  return db.sync({force: env.IS_FORCE_DB_SYNC});
 }
 
 export function initDefaultData(db: Sequelize, env: IEnv): Promise<Sequelize> {

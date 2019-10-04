@@ -6,7 +6,12 @@ import {validateObject} from "../../../../utils/utils";
 
 export async function signInCtr(auth: IAuth, user: ISignInUserReq): Promise<ISignInRes> {
   return validateObject(user, signInValidationScheme)
-    .then(() => auth.signIn(user.email, user.password))
+    .then(() =>
+      auth.signIn({
+        email: user.email,
+        password: user.password,
+      }),
+    )
     .then(({token}) => {
       return {
         ok: true,

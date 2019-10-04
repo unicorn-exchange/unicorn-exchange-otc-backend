@@ -6,7 +6,8 @@ import {IBaseContext} from "../../interfaces/IContext";
 import {Sequelize} from "sequelize-typescript";
 import {UserModel} from "../../types/models/user.model";
 import {Enums} from "../../types/enums/enums";
-import {ISignUpUserReq} from "../../types/api/requests";
+import {ISignInUserReq, ISignUpUserReq} from "../../types/api/requests";
+import {QueryInterfaceOptions} from "sequelize";
 
 export class LocalAuth implements IAuth {
   private ctx: IBaseContext;
@@ -17,16 +18,19 @@ export class LocalAuth implements IAuth {
     this.db = db;
   }
 
-  signUp(user: ISignUpUserReq) {
+  signUp(user: ISignUpUserReq, options?: QueryInterfaceOptions) {
     const salt = randomBytes(32);
     return argon2
       .hash(user.password, {salt})
       .then(hashedPassword => {
-        return UserModel.create({
-          ...user,
-          salt: salt.toString(Enums.Hex),
-          password: hashedPassword,
-        });
+        return UserModel.create(
+          {
+            ...user,
+            salt: salt.toString(Enums.Hex),
+            password: hashedPassword,
+          },
+          options,
+        );
       })
       .then(userRec => {
         const token = this.generateToken(userRec);
@@ -38,14 +42,14 @@ export class LocalAuth implements IAuth {
       });
   }
 
-  signIn(email: string, password: string) {
-    return UserModel.findOne({where: {email}})
+  signIn(user: ISignInUserReq) {
+    return UserModel.findOne({where: {email: user.email}})
       .then(userRecord => {
         if (!userRecord) {
           throw new Error("User not found");
         }
         return argon2
-          .verify(userRecord.password, password)
+          .verify(userRecord.password, user.password)
           .then(() => {
             const token = this.generateToken(userRecord);
             return {user: userRecord, token};

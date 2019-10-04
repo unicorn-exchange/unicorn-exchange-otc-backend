@@ -7,7 +7,7 @@ export function meCtr(token?: string): Promise<ISignInUserRes> {
     throw new Error("ds");
   }
   const obj = decodeToken(token);
-  return UserModel.findById(obj.userId).then(user => {
+  return UserModel.findByPk(obj.userId).then(user => {
     if (!user) {
       throw new Error("ds");
     }

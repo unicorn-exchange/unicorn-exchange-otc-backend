@@ -1,12 +1,11 @@
+import {IDBInstance, IOrderDTO} from "../../../../types/api/dtos";
 import {OrderModel} from "../../../../types/models/order.model";
-import {ICommonRes} from "../../../../types/api/responses";
-import {IDBInstance} from "../../../../types/api/dtos";
 import {validateObject} from "../../../../utils/utils";
 import {dbInstanceValidationScheme} from "../../../../types/validators/db-instance-validator";
 
-export function ordersDeclineCtr(params: IDBInstance): Promise<ICommonRes> {
+export async function ordersRequestCtr(params: IDBInstance): Promise<IOrderDTO> {
   return validateObject(params, dbInstanceValidationScheme)
-    .then(() => OrderModel.findById(params.id))
+    .then(() => OrderModel.findByPk(params.id))
     .then(order => {
       if (!order) {
         throw new Error("Order is not found");

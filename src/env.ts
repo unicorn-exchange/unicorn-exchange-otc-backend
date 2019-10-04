@@ -9,6 +9,7 @@ export interface IEnv {
   PORT: number;
   BLOCKCHAIN_NETWORK: string;
   IS_PRODUCTION: boolean;
+  IS_FORCE_DB_SYNC: boolean;
   JWT_SECRET: string;
   DB_HOST: string;
   DB_NAME: string;
@@ -21,6 +22,7 @@ class Env implements IEnv {
   PORT: number;
   BLOCKCHAIN_NETWORK: string;
   IS_PRODUCTION: boolean;
+  IS_FORCE_DB_SYNC: boolean = false;
   JWT_SECRET: string;
   DB_HOST: string;
   DB_NAME: string;

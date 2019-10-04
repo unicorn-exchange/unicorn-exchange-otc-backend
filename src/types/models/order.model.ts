@@ -1,4 +1,4 @@
-import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {UserModel} from "./user.model";
 import {CountryModel} from "./country.model";
 import {PaymentMethodModel} from "./payment-method.model";
@@ -11,12 +11,18 @@ export class OrderModel extends Model<OrderModel> {
   @Column(DataType.INTEGER)
   ownerId!: number;
 
+  @BelongsTo(() => UserModel)
+  owner!: UserModel;
+
   @ForeignKey(() => BlockchainModel)
   @Column({
     type: DataType.INTEGER,
     field: ordersCreateFields.cryptoCurrencyBuyId,
   })
   cryptoCurrencyBuyId!: number;
+
+  @BelongsTo(() => BlockchainModel)
+  cryptoCurrencyBuy!: BlockchainModel;
 
   @Column({
     type: DataType.INTEGER,
@@ -31,6 +37,9 @@ export class OrderModel extends Model<OrderModel> {
   })
   cryptoCurrencySellId!: number;
 
+  @BelongsTo(() => BlockchainModel)
+  cryptoCurrencySell!: BlockchainModel;
+
   @Column({
     type: DataType.INTEGER,
     field: ordersCreateFields.cryptoCurrencySellPrice,
@@ -44,12 +53,18 @@ export class OrderModel extends Model<OrderModel> {
   })
   countryId!: number;
 
+  @BelongsTo(() => CountryModel)
+  country!: CountryModel;
+
   @ForeignKey(() => PaymentMethodModel)
   @Column({
     type: DataType.INTEGER,
     field: ordersCreateFields.paymentMethodId,
   })
   paymentMethodId!: number;
+
+  @BelongsTo(() => PaymentMethodModel)
+  paymentMethod!: PaymentMethodModel;
 
   @Column({
     type: DataType.INTEGER,

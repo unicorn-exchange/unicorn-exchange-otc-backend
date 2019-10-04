@@ -2,37 +2,25 @@ import {Router} from "express";
 import RestypedRouter from "restyped-express-async-middleware";
 import {
   APIV1Doc,
-  ORDERS,
   ORDERS_CONFIRM,
   ORDERS_CREATE,
   ORDERS_DECLINE,
+  ORDERS_GET_ALL,
+  ORDERS_GET_ONE,
   ORDERS_REQUEST,
 } from "../../../../types/api/api-v1-doc";
-import {ordersCreateCtr} from "./create";
-import {IOrdersRes} from "../../../../types/api/responses";
-import {IOrdersReq} from "../../../../types/api/requests";
-import {ordersConfirmCtr} from "./confirm";
-import {ordersRequestCtr} from "./request";
-import {ordersDeclineCtr} from "./decline";
-import {OrderModel} from "../../../../types/models/order.model";
-
-async function ordersCtr(query: IOrdersReq): Promise<IOrdersRes> {
-  return OrderModel.findAndCountAll({
-    limit: query.limit,
-    offset: query.offset,
-  }).then(data => {
-    return {
-      payload: data.rows,
-      ok: true,
-      count: data.count,
-    } as IOrdersRes;
-  });
-}
+import {ordersCreateCtr} from "./orders-create.ctr";
+import {ordersConfirmCtr} from "./orders-confirm.ctr";
+import {ordersRequestCtr} from "./orders-request.ctr";
+import {ordersDeclineCtr} from "./orders-decline.ctr";
+import {ordersGetAllCtr} from "./orders-get-all.ctr";
+import {ordersGetOneCtr} from "./orders-get-one.ctr";
 
 export function ordersRouter(parentRouter: Router) {
   const router = RestypedRouter<APIV1Doc>(parentRouter);
 
-  router.get(ORDERS, async req => ordersCtr(req.query));
+  router.get(ORDERS_GET_ONE, async req => ordersGetOneCtr(req.params));
+  router.get(ORDERS_GET_ALL, async req => ordersGetAllCtr(req.query));
   router.post(ORDERS_CREATE, async req => ordersCreateCtr(req.body));
   router.get(ORDERS_REQUEST, async req => ordersRequestCtr(req.query));
   router.post(ORDERS_CONFIRM, async req => ordersConfirmCtr(req.body));

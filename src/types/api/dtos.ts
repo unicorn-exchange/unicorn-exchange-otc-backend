@@ -20,7 +20,16 @@ export interface IOrderDTO extends IDBInstance {
   [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: boolean;
 }
 
+export interface IUserDTO extends IDBInstance {
+  email: string;
+  username: string;
+}
+
 export interface ICryptoCurrencyDTO extends IDBInstance {
+  title: string;
+}
+
+export interface ICurrencyDTO extends IDBInstance {
   title: string;
 }
 
@@ -30,4 +39,13 @@ export interface ICountryDTO extends IDBInstance {
 
 export interface IPaymentMethodDTO extends IDBInstance {
   title: string;
+}
+
+export interface IFullOrderDTO extends IDBInstance {
+  user: IUserDTO;
+  cryptoCurrencyBuy: ICryptoCurrencyDTO;
+  cryptoCurrencySell: ICryptoCurrencyDTO;
+  currency: ICurrencyDTO;
+  paymentMethod: IPaymentMethodDTO;
+  country: ICountryDTO;
 }

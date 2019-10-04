@@ -5,15 +5,20 @@ import {signUpValidationScheme} from "../../../../types/validators/sign-up-valid
 import {validateObject} from "../../../../utils/utils";
 import {CryptoAccountModel} from "../../../../types/models/crypto-account.model";
 import {BlockchainsIds} from "../../../../../data/blockchains";
+import {QueryInterfaceOptions} from "sequelize";
 
-export async function signUpCtr(auth: IAuth, user: ISignUpUserReq): Promise<ISignUpRes> {
+export async function signUpCtr(
+  auth: IAuth,
+  user: ISignUpUserReq,
+  options?: QueryInterfaceOptions,
+): Promise<ISignUpRes> {
   return validateObject(user, signUpValidationScheme)
-    .then(() => auth.signUp(user))
+    .then(vv => auth.signUp(user, options))
     .then(({user, token}) => {
       if (!user) {
         throw new Error("No User");
       }
-      return createDefaultWallets(user).then(() => {
+      return createDefaultWallets(user, options).then(() => {
         return {
           ok: true,
           errors: [],
@@ -30,15 +35,21 @@ export async function signUpCtr(auth: IAuth, user: ISignUpUserReq): Promise<ISig
     });
 }
 
-function createDefaultWallets(user: ISignInUserRes): Promise<any> {
+function createDefaultWallets(user: ISignInUserRes, options?: QueryInterfaceOptions): Promise<any> {
   return Promise.all([
-    CryptoAccountModel.create({
-      userId: user.id,
-      blockchainId: BlockchainsIds.Bitcoin,
-    }),
-    CryptoAccountModel.create({
-      userId: user.id,
-      blockchainId: BlockchainsIds.Ethereum,
-    }),
+    CryptoAccountModel.create(
+      {
+        userId: user.id,
+        blockchainId: BlockchainsIds.Bitcoin,
+      },
+      options,
+    ),
+    CryptoAccountModel.create(
+      {
+        userId: user.id,
+        blockchainId: BlockchainsIds.Ethereum,
+      },
+      options,
+    ),
   ]);
 }

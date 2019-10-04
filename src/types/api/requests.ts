@@ -5,8 +5,7 @@ export interface IPagination {
   limit?: number;
 }
 
-export interface IOrdersReq extends IPagination {
-}
+export interface IOrdersReq extends IPagination {}
 
 export interface ISignInUserReq {
   email: string;

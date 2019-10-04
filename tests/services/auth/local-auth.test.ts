@@ -1,40 +1,37 @@
-import {mockBaseCtx, mockEnv, mockUserValid} from "../../test_utils";
-import {createDB, initModels} from "../../../src/services/db";
+import {beforeAllCommon, mockBaseCtx, mockUserValid1, mockUserValid2} from "../../test_utils";
+import {createDB} from "../../../src/services/db";
 import {LocalAuth} from "../../../src/services/auth/local-auth";
 import {Transaction} from "sequelize";
 import {meCtr} from "../../../src/api/v1/routes/users/me";
 
 const db = createDB(mockBaseCtx);
+const auth = new LocalAuth(mockBaseCtx, db);
 let t: Transaction;
 
 describe("Local auth service test", () => {
-  // TODO: fix transaction
-  beforeAll(() => {
-    return initModels(db, mockEnv).then(db => {
-      return db.transaction().then(_t => {
-        t = _t;
+  beforeAll(() => beforeAllCommon(db).then(_t => (t = _t)));
+
+  it("should sign in a user and get a valid token", () => {
+    return auth.signIn(mockUserValid1).then(res => {
+      expect(res.user.password).not.toBe(mockUserValid1.password);
+      return meCtr(res.token).then(meRes => {
+        expect(meRes.id).toBe(res.user.id);
+        return meRes;
       });
     });
   });
 
-  it("should create a user with valid token", () => {
-    const auth = new LocalAuth(mockBaseCtx, db);
-    return auth
-      .signUp(mockUserValid)
-      .then(res => {
-        expect(res.user.email).toBe(mockUserValid.email);
-        return auth.signIn(mockUserValid.email, mockUserValid.password);
-      })
-      .then(res => {
-        expect(res.user.password).not.toBe(mockUserValid.password);
-        return meCtr(res.token).then(meRes => {
-          expect(meRes.id).toBe(res.user.id);
-          return meRes;
-        });
-      });
+  it("should sign up a different user", () => {
+    return auth.signUp(mockUserValid2, {transaction: t}).then(res => {
+      expect(res.user.email).toBe(mockUserValid2.email);
+    });
   });
 
-  afterAll(() => {
-    t.rollback();
+  it("should NOT sign up a user with the same email and username", () => {
+    return auth.signUp(mockUserValid1, {transaction: t}).catch(err => {
+      expect(err).toBeDefined();
+    });
   });
+
+  afterAll(() => t.rollback());
 });

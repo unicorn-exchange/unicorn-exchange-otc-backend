@@ -1,5 +1,6 @@
-import {ISignUpUserReq} from "../types/api/requests";
+import {ISignInUserReq, ISignUpUserReq} from "../types/api/requests";
 import {ISignInUserRes} from "../types/api/responses";
+import {QueryInterfaceOptions} from "sequelize";
 
 interface IAuthResponse {
   user?: ISignInUserRes;
@@ -12,7 +13,8 @@ export interface IDecodedTokenObj {
 }
 
 export interface IAuth {
-  signIn(email: string, password: string): Promise<IAuthResponse>;
+  signIn(user: ISignInUserReq): Promise<IAuthResponse>;
 
-  signUp(user: ISignUpUserReq): Promise<IAuthResponse>;
+  // TODO: QueryInterfaceOptions should not be in general IAuth
+  signUp(user: ISignUpUserReq, options?: QueryInterfaceOptions): Promise<IAuthResponse>;
 }

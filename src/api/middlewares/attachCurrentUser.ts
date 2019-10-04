@@ -7,7 +7,7 @@ export function attachCurrentUser(req: Request, res: Response, next: NextFunctio
     return next(new Error("No token"));
   }
   const obj = decodeToken(req.token);
-  UserModel.findById(obj.userId).then(user => {
+  UserModel.findByPk(obj.userId).then(user => {
     if (!user) {
       return next(new Error("No user"));
     }
@@ -17,7 +17,7 @@ export function attachCurrentUser(req: Request, res: Response, next: NextFunctio
   // const Logger = Container.get("logger");
   // try {
   //   const UserModel = Container.get("userModel") as mongoose.Model<IUser & mongoose.Document>;
-  //   const userRecord = await UserModel.findById(req.token._id);
+  //   const userRecord = await UserModel.findByPk(req.token._id);
   //   if (!userRecord) {
   //     return res.sendStatus(401);
   //   }

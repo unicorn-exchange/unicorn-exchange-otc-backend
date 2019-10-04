@@ -7,6 +7,9 @@ import {initServices} from "./services";
 import {initSocket} from "./socket";
 import {initDBConnection, initDefaultData, initModels} from "./services/db";
 import {IBaseContext} from "./interfaces/IContext";
+import {initPolyfills} from "./utils/polyfils";
+
+initPolyfills(global);
 
 const app = express();
 const env = initEnvVariables();
