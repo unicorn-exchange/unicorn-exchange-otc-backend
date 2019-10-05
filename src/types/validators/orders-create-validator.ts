@@ -1,33 +1,33 @@
-import {ordersCreateFields} from "../enums/forms/orders-create";
+import {orderCommonFields} from "../enums/forms/order";
 import * as yup from "yup";
 
 export const ordersCreateValidationScheme = {
-  [ordersCreateFields.countryId]: yup
+  [orderCommonFields.countryId]: yup
     .number()
     .nullable()
     .required(),
-  [ordersCreateFields.cryptoCurrencySellId]: yup
+  [orderCommonFields.cryptoCurrencySellId]: yup
     .number()
     .nullable()
     .required(),
-  [ordersCreateFields.cryptoCurrencySellPrice]: yup.string().required(),
-  [ordersCreateFields.cryptoCurrencyBuyId]: yup.number().required(),
-  [ordersCreateFields.cryptoCurrencyBuyPrice]: yup
+  [orderCommonFields.cryptoCurrencySellPrice]: yup.string().required(),
+  [orderCommonFields.cryptoCurrencyBuyId]: yup.number().required(),
+  [orderCommonFields.cryptoCurrencyBuyPrice]: yup
     .string()
     .nullable()
     .required(),
-  [ordersCreateFields.paymentMethodId]: yup
+  [orderCommonFields.paymentMethodId]: yup
     .number()
     .nullable()
     .required(),
-  [ordersCreateFields.bankName]: yup
+  [orderCommonFields.bankName]: yup
     .string()
     .nullable()
     .required(),
-  [ordersCreateFields.marginProfit]: yup.string().required(),
-  [ordersCreateFields.isAutoAdjustTransactionLimit]: yup.boolean().nullable(),
-  [ordersCreateFields.termsOfTrade]: yup.string().nullable(),
-  [ordersCreateFields.isVerifiedUsersOnly]: yup.boolean().nullable(),
-  [ordersCreateFields.isTrustedUsersOnly]: yup.boolean().nullable(),
-  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: yup.boolean().nullable(),
+  [orderCommonFields.marginProfit]: yup.string().required(),
+  [orderCommonFields.isAutoAdjustTransactionLimit]: yup.boolean().nullable(),
+  [orderCommonFields.termsOfTrade]: yup.string().nullable(),
+  [orderCommonFields.isVerifiedUsersOnly]: yup.boolean().nullable(),
+  [orderCommonFields.isTrustedUsersOnly]: yup.boolean().nullable(),
+  [orderCommonFields.isIdentifyUsersBeforeContinueTrade]: yup.boolean().nullable(),
 };

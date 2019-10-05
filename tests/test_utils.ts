@@ -2,7 +2,7 @@ import {IEnv} from "../src/env";
 import {IBaseContext} from "../src/interfaces/IContext";
 import {defaultLogger} from "../src/utils/logger";
 import {ISignUpUserReq} from "../src/types/api/requests";
-import {ordersCreateFields} from "../src/types/enums/forms/orders-create";
+import {orderCommonFields} from "../src/types/enums/forms/order";
 import {IOrderDTO} from "../src/types/api/dtos";
 import {initModels} from "../src/services/db";
 import {Sequelize} from "sequelize-typescript";
@@ -49,19 +49,19 @@ export const mockUserValid2: ISignUpUserReq = {
 };
 
 export const mockOrderValid: IOrderDTO = {
-  [ordersCreateFields.countryId]: 1,
-  [ordersCreateFields.cryptoCurrencySellId]: 1,
-  [ordersCreateFields.cryptoCurrencySellPrice]: 1,
-  [ordersCreateFields.cryptoCurrencyBuyId]: 1,
-  [ordersCreateFields.cryptoCurrencyBuyPrice]: 1,
-  [ordersCreateFields.paymentMethodId]: 1,
-  [ordersCreateFields.bankName]: "string",
-  [ordersCreateFields.marginProfit]: 1,
-  [ordersCreateFields.isAutoAdjustTransactionLimit]: true,
-  [ordersCreateFields.termsOfTrade]: "string",
-  [ordersCreateFields.isVerifiedUsersOnly]: true,
-  [ordersCreateFields.isTrustedUsersOnly]: true,
-  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: true,
+  [orderCommonFields.countryId]: 1,
+  [orderCommonFields.cryptoCurrencySellId]: 1,
+  [orderCommonFields.cryptoCurrencySellPrice]: 1,
+  [orderCommonFields.cryptoCurrencyBuyId]: 1,
+  [orderCommonFields.cryptoCurrencyBuyPrice]: 1,
+  [orderCommonFields.paymentMethodId]: 1,
+  [orderCommonFields.bankName]: "string",
+  [orderCommonFields.marginProfit]: 1,
+  [orderCommonFields.isAutoAdjustTransactionLimit]: true,
+  [orderCommonFields.termsOfTrade]: "string",
+  [orderCommonFields.isVerifiedUsersOnly]: true,
+  [orderCommonFields.isTrustedUsersOnly]: true,
+  [orderCommonFields.isIdentifyUsersBeforeContinueTrade]: true,
 };
 
 export const mockBaseCtx: IBaseContext = {

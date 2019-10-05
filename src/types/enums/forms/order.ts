@@ -1,10 +1,6 @@
-export enum ordersCreateFields {
-  countryId = "countryId",
-  cryptoCurrencySellId = "cryptoCurrencySellId",
+export enum orderCommonFields {
   cryptoCurrencySellPrice = "cryptoCurrencySellPrice",
-  cryptoCurrencyBuyId = "cryptoCurrencyBuyId",
   cryptoCurrencyBuyPrice = "cryptoCurrencyBuyPrice",
-  paymentMethodId = "paymentMethodId",
   bankName = "bankName",
   marginProfit = "marginProfit",
   isAutoAdjustTransactionLimit = "isAutoAdjustTransactionLimit",
@@ -12,4 +8,18 @@ export enum ordersCreateFields {
   isVerifiedUsersOnly = "isVerifiedUsersOnly",
   isTrustedUsersOnly = "isTrustedUsersOnly",
   isIdentifyUsersBeforeContinueTrade = "isIdentifyUsersBeforeContinueTrade",
+}
+
+export enum orderWriteFields {
+  countryId = "countryId",
+  paymentMethodId = "paymentMethodId",
+  cryptoCurrencySellId = "cryptoCurrencySellId",
+  cryptoCurrencyBuyId = "cryptoCurrencyBuyId",
+}
+
+export enum orderReadFields {
+  country = "country",
+  paymentMethod = "paymentMethod",
+  cryptoCurrencySell = "cryptoCurrencySell",
+  cryptoCurrencyBuy = "cryptoCurrencyBuy",
 }

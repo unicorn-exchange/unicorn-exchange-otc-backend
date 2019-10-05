@@ -1,23 +1,7 @@
-import {ordersCreateFields} from "../enums/forms/orders-create";
+import {orderCommonFields} from "../enums/forms/order";
 
 export interface IDBInstance {
   id?: number;
-}
-
-export interface IOrderDTO extends IDBInstance {
-  [ordersCreateFields.countryId]: number;
-  [ordersCreateFields.cryptoCurrencySellId]: number;
-  [ordersCreateFields.cryptoCurrencySellPrice]: number;
-  [ordersCreateFields.cryptoCurrencyBuyId]: number;
-  [ordersCreateFields.cryptoCurrencyBuyPrice]: number;
-  [ordersCreateFields.paymentMethodId]: number;
-  [ordersCreateFields.bankName]: string;
-  [ordersCreateFields.marginProfit]: number;
-  [ordersCreateFields.termsOfTrade]: string;
-  [ordersCreateFields.isAutoAdjustTransactionLimit]: boolean;
-  [ordersCreateFields.isVerifiedUsersOnly]: boolean;
-  [ordersCreateFields.isTrustedUsersOnly]: boolean;
-  [ordersCreateFields.isIdentifyUsersBeforeContinueTrade]: boolean;
 }
 
 export interface IUserDTO extends IDBInstance {
@@ -39,6 +23,25 @@ export interface ICountryDTO extends IDBInstance {
 
 export interface IPaymentMethodDTO extends IDBInstance {
   title: string;
+}
+
+export interface IOrderCommonDTO extends IDBInstance {
+  [orderCommonFields.cryptoCurrencySellPrice]: number;
+  [orderCommonFields.cryptoCurrencyBuyPrice]: number;
+  [orderCommonFields.bankName]: string;
+  [orderCommonFields.marginProfit]: number;
+  [orderCommonFields.termsOfTrade]: string;
+  [orderCommonFields.isAutoAdjustTransactionLimit]: boolean;
+  [orderCommonFields.isVerifiedUsersOnly]: boolean;
+  [orderCommonFields.isTrustedUsersOnly]: boolean;
+  [orderCommonFields.isIdentifyUsersBeforeContinueTrade]: boolean;
+}
+
+export interface IOrderDTO extends IOrderCommonDTO {
+  [orderCommonFields.countryId]: number;
+  [orderCommonFields.cryptoCurrencySellId]: number;
+  [orderCommonFields.cryptoCurrencyBuyId]: number;
+  [orderCommonFields.paymentMethodId]: number;
 }
 
 export interface IFullOrderDTO extends IDBInstance {
