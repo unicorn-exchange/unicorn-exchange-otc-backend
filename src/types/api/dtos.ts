@@ -1,4 +1,4 @@
-import {orderCommonFields} from "../enums/forms/order";
+import {orderCommonFields, orderReadFields, orderWriteFields} from "../enums/forms/order";
 
 export interface IDBInstance {
   id?: number;
@@ -37,18 +37,21 @@ export interface IOrderCommonDTO extends IDBInstance {
   [orderCommonFields.isIdentifyUsersBeforeContinueTrade]: boolean;
 }
 
-export interface IOrderDTO extends IOrderCommonDTO {
-  [orderCommonFields.countryId]: number;
-  [orderCommonFields.cryptoCurrencySellId]: number;
-  [orderCommonFields.cryptoCurrencyBuyId]: number;
-  [orderCommonFields.paymentMethodId]: number;
+export interface IOrderWriteDTO extends IOrderCommonDTO {
+  [orderWriteFields.countryId]: number;
+  [orderWriteFields.cryptoCurrencySellId]: number;
+  [orderWriteFields.cryptoCurrencyBuyId]: number;
+  [orderWriteFields.paymentMethodId]: number;
 }
 
-export interface IFullOrderDTO extends IDBInstance {
-  user: IUserDTO;
-  cryptoCurrencyBuy: ICryptoCurrencyDTO;
-  cryptoCurrencySell: ICryptoCurrencyDTO;
-  currency: ICurrencyDTO;
-  paymentMethod: IPaymentMethodDTO;
-  country: ICountryDTO;
+export interface IFullOrderDTO extends IOrderCommonDTO {
+  [orderReadFields.owner]: IUserDTO;
+  [orderReadFields.cryptoCurrencyBuy]: ICryptoCurrencyDTO;
+  [orderReadFields.cryptoCurrencySell]: ICryptoCurrencyDTO;
+  [orderReadFields.currency]: ICurrencyDTO;
+  [orderReadFields.paymentMethod]: IPaymentMethodDTO;
+  [orderReadFields.country]: ICountryDTO;
 }
+
+// Order with less amount of data to reduce payload
+export interface IPartOrderDTO extends IFullOrderDTO {}

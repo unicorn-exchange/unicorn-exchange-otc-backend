@@ -1,6 +1,14 @@
 import {ISignUpUserReq} from "./requests";
 import {ValidationError} from "yup";
-import {ICountryDTO, ICryptoCurrencyDTO, IDBInstance, IOrderDTO, IPaymentMethodDTO} from "./dtos";
+import {
+  ICountryDTO,
+  ICryptoCurrencyDTO,
+  IDBInstance,
+  IFullOrderDTO,
+  IOrderWriteDTO,
+  IPartOrderDTO,
+  IPaymentMethodDTO,
+} from "./dtos";
 
 export interface ICommonRes {
   ok: boolean;
@@ -28,10 +36,14 @@ export interface ISignInRes extends ICommonRes {
 }
 
 export interface IOrdersCreateRes extends ICommonRes, IDBInstance {
-  payload?: IOrderDTO;
+  payload?: IOrderWriteDTO;
+}
+
+export interface IOrderRes extends ICommonRes {
+  payload?: IFullOrderDTO;
 }
 
 export interface IOrdersRes extends ICommonRes {
-  payload?: IOrderDTO[];
+  payload?: IPartOrderDTO[];
   count: number;
 }

@@ -1,8 +1,9 @@
 import {userDepositFields} from "../enums/forms/user-deposit";
+import {paginationFields} from "../enums/forms/pagination";
 
 export interface IPagination {
-  offset?: number;
-  limit?: number;
+  [paginationFields.limit]?: number;
+  [paginationFields.offset]?: number;
 }
 
 export interface IOrdersReq extends IPagination {}

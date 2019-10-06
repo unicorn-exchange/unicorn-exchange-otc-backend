@@ -2,7 +2,7 @@ import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-t
 import {UserModel} from "./user.model";
 import {CountryModel} from "./country.model";
 import {PaymentMethodModel} from "./payment-method.model";
-import {orderCommonFields} from "../enums/forms/order";
+import {orderCommonFields, orderWriteFields} from "../enums/forms/order";
 import {BlockchainModel} from "./blockchain.model";
 
 @Table({modelName: "orders"})
@@ -17,7 +17,7 @@ export class OrderModel extends Model<OrderModel> {
   @ForeignKey(() => BlockchainModel)
   @Column({
     type: DataType.INTEGER,
-    field: orderCommonFields.cryptoCurrencyBuyId,
+    field: orderWriteFields.cryptoCurrencyBuyId,
   })
   cryptoCurrencyBuyId!: number;
 
@@ -33,7 +33,7 @@ export class OrderModel extends Model<OrderModel> {
   @ForeignKey(() => BlockchainModel)
   @Column({
     type: DataType.INTEGER,
-    field: orderCommonFields.cryptoCurrencySellId,
+    field: orderWriteFields.cryptoCurrencySellId,
   })
   cryptoCurrencySellId!: number;
 
@@ -49,7 +49,7 @@ export class OrderModel extends Model<OrderModel> {
   @ForeignKey(() => CountryModel)
   @Column({
     type: DataType.INTEGER,
-    field: orderCommonFields.countryId,
+    field: orderWriteFields.countryId,
   })
   countryId!: number;
 
@@ -59,7 +59,7 @@ export class OrderModel extends Model<OrderModel> {
   @ForeignKey(() => PaymentMethodModel)
   @Column({
     type: DataType.INTEGER,
-    field: orderCommonFields.paymentMethodId,
+    field: orderWriteFields.paymentMethodId,
   })
   paymentMethodId!: number;
 

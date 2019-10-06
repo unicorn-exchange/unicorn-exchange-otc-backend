@@ -1,22 +1,22 @@
-import {orderCommonFields} from "../enums/forms/order";
+import {orderCommonFields, orderWriteFields} from "../enums/forms/order";
 import * as yup from "yup";
 
 export const ordersCreateValidationScheme = {
-  [orderCommonFields.countryId]: yup
+  [orderWriteFields.countryId]: yup
     .number()
     .nullable()
     .required(),
-  [orderCommonFields.cryptoCurrencySellId]: yup
+  [orderWriteFields.cryptoCurrencySellId]: yup
     .number()
     .nullable()
     .required(),
   [orderCommonFields.cryptoCurrencySellPrice]: yup.string().required(),
-  [orderCommonFields.cryptoCurrencyBuyId]: yup.number().required(),
+  [orderWriteFields.cryptoCurrencyBuyId]: yup.number().required(),
   [orderCommonFields.cryptoCurrencyBuyPrice]: yup
     .string()
     .nullable()
     .required(),
-  [orderCommonFields.paymentMethodId]: yup
+  [orderWriteFields.paymentMethodId]: yup
     .number()
     .nullable()
     .required(),

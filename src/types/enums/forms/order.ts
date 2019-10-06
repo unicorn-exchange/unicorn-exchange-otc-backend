@@ -18,8 +18,10 @@ export enum orderWriteFields {
 }
 
 export enum orderReadFields {
+  owner = "owner",
   country = "country",
   paymentMethod = "paymentMethod",
   cryptoCurrencySell = "cryptoCurrencySell",
   cryptoCurrencyBuy = "cryptoCurrencyBuy",
+  currency = "currency",
 }

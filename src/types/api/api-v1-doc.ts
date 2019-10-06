@@ -9,7 +9,7 @@ import {
   ISignUpRes,
 } from "./responses";
 import {IDepositReq, IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
-import {IDBInstance, IFullOrderDTO, IOrderDTO} from "./dtos";
+import {IDBInstance, IFullOrderDTO, IOrderWriteDTO} from "./dtos";
 
 export const USERS_ME = "/users/me";
 export const USERS_DEPOSIT = "/users/deposit";
@@ -89,7 +89,7 @@ export interface APIV1Doc {
 
   [ORDERS_CREATE]: {
     POST: {
-      body: IOrderDTO;
+      body: IOrderWriteDTO;
       response: IOrdersCreateRes;
     };
   };
@@ -97,7 +97,7 @@ export interface APIV1Doc {
   [ORDERS_REQUEST]: {
     GET: {
       query: IDBInstance;
-      response: IOrderDTO;
+      response: IOrderWriteDTO;
     };
   };
 

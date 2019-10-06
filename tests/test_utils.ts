@@ -2,8 +2,8 @@ import {IEnv} from "../src/env";
 import {IBaseContext} from "../src/interfaces/IContext";
 import {defaultLogger} from "../src/utils/logger";
 import {ISignUpUserReq} from "../src/types/api/requests";
-import {orderCommonFields} from "../src/types/enums/forms/order";
-import {IOrderDTO} from "../src/types/api/dtos";
+import {orderCommonFields, orderWriteFields} from "../src/types/enums/forms/order";
+import {IOrderWriteDTO} from "../src/types/api/dtos";
 import {initModels} from "../src/services/db";
 import {Sequelize} from "sequelize-typescript";
 
@@ -48,13 +48,13 @@ export const mockUserValid2: ISignUpUserReq = {
   username: "username2",
 };
 
-export const mockOrderValid: IOrderDTO = {
-  [orderCommonFields.countryId]: 1,
-  [orderCommonFields.cryptoCurrencySellId]: 1,
+export const mockOrderCreateValid: IOrderWriteDTO = {
+  [orderWriteFields.countryId]: 1,
+  [orderWriteFields.cryptoCurrencySellId]: 1,
   [orderCommonFields.cryptoCurrencySellPrice]: 1,
-  [orderCommonFields.cryptoCurrencyBuyId]: 1,
+  [orderWriteFields.cryptoCurrencyBuyId]: 1,
   [orderCommonFields.cryptoCurrencyBuyPrice]: 1,
-  [orderCommonFields.paymentMethodId]: 1,
+  [orderWriteFields.paymentMethodId]: 1,
   [orderCommonFields.bankName]: "string",
   [orderCommonFields.marginProfit]: 1,
   [orderCommonFields.isAutoAdjustTransactionLimit]: true,
