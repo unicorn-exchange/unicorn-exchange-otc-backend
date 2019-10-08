@@ -1,6 +1,6 @@
 export enum orderCommonFields {
-  cryptoCurrencySellPrice = "cryptoCurrencySellPrice",
-  cryptoCurrencyBuyPrice = "cryptoCurrencyBuyPrice",
+  currencySellPrice = "currencySellPrice",
+  currencyBuyPrice = "currencyBuyPrice",
   bankName = "bankName",
   marginProfit = "marginProfit",
   isAutoAdjustTransactionLimit = "isAutoAdjustTransactionLimit",
@@ -8,20 +8,27 @@ export enum orderCommonFields {
   isVerifiedUsersOnly = "isVerifiedUsersOnly",
   isTrustedUsersOnly = "isTrustedUsersOnly",
   isIdentifyUsersBeforeContinueTrade = "isIdentifyUsersBeforeContinueTrade",
+  currencySell = "currencySell",
+  currencyBuy = "currencyBuy",
 }
 
 export enum orderWriteFields {
+  ownerId = "ownerId",
   countryId = "countryId",
   paymentMethodId = "paymentMethodId",
   cryptoCurrencySellId = "cryptoCurrencySellId",
+  fiatSellId = "fiatSellId",
   cryptoCurrencyBuyId = "cryptoCurrencyBuyId",
+  fiatBuyId = "fiatBuyId",
 }
 
 export enum orderReadFields {
+  accepter = "accepter",
   owner = "owner",
   country = "country",
   paymentMethod = "paymentMethod",
   cryptoCurrencySell = "cryptoCurrencySell",
   cryptoCurrencyBuy = "cryptoCurrencyBuy",
-  currency = "currency",
+  fiatSell = "fiatSell",
+  fiatBuy = "fiatBuy",
 }

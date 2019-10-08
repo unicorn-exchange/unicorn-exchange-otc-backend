@@ -11,7 +11,7 @@ export function attachCurrentUser(req: Request, res: Response, next: NextFunctio
     if (!user) {
       return next(new Error("No user"));
     }
-    req.user = user;
+    req.user = user.toJSON();
   });
 
   // const Logger = Container.get("logger");

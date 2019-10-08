@@ -2,49 +2,85 @@ import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-t
 import {UserModel} from "./user.model";
 import {CountryModel} from "./country.model";
 import {PaymentMethodModel} from "./payment-method.model";
-import {orderCommonFields, orderWriteFields} from "../enums/forms/order";
-import {BlockchainModel} from "./blockchain.model";
+import {orderCommonFields, orderReadFields, orderWriteFields} from "../enums/forms/order";
+import {CryptoCurrencyModel} from "./crypto-currency.model";
+import {FiatModel} from "./fiat.model";
 
 @Table({modelName: "orders"})
 export class OrderModel extends Model<OrderModel> {
   @ForeignKey(() => UserModel)
-  @Column(DataType.INTEGER)
+  @Column({
+    type: DataType.INTEGER,
+    field: orderWriteFields.ownerId,
+    comment: "User, who confirmed the order",
+  })
   ownerId!: number;
 
   @BelongsTo(() => UserModel)
   owner!: UserModel;
 
-  @ForeignKey(() => BlockchainModel)
+  @ForeignKey(() => UserModel)
+  @Column({
+    type: DataType.INTEGER,
+    field: orderReadFields.accepter,
+    comment: "User, who accepted the order",
+  })
+  accepterId!: number;
+
+  @BelongsTo(() => UserModel)
+  accepter!: UserModel;
+
+  @ForeignKey(() => CryptoCurrencyModel)
   @Column({
     type: DataType.INTEGER,
     field: orderWriteFields.cryptoCurrencyBuyId,
   })
   cryptoCurrencyBuyId!: number;
 
-  @BelongsTo(() => BlockchainModel)
-  cryptoCurrencyBuy!: BlockchainModel;
+  @BelongsTo(() => CryptoCurrencyModel, "id")
+  cryptoCurrencyBuy!: CryptoCurrencyModel;
+
+  @ForeignKey(() => FiatModel)
+  @Column({
+    type: DataType.INTEGER,
+    field: orderWriteFields.fiatBuyId,
+  })
+  fiatBuyId!: number;
+
+  @BelongsTo(() => FiatModel, "id")
+  fiatBuy!: FiatModel;
 
   @Column({
     type: DataType.INTEGER,
-    field: orderCommonFields.cryptoCurrencyBuyPrice,
+    field: orderCommonFields.currencyBuyPrice,
   })
-  cryptoCurrencyBuyPrice!: number;
+  currencyBuyPrice!: number;
 
-  @ForeignKey(() => BlockchainModel)
+  @ForeignKey(() => CryptoCurrencyModel)
   @Column({
     type: DataType.INTEGER,
     field: orderWriteFields.cryptoCurrencySellId,
   })
   cryptoCurrencySellId!: number;
 
-  @BelongsTo(() => BlockchainModel)
-  cryptoCurrencySell!: BlockchainModel;
+  @BelongsTo(() => CryptoCurrencyModel, "id")
+  cryptoCurrencySell!: CryptoCurrencyModel;
+
+  @ForeignKey(() => FiatModel)
+  @Column({
+    type: DataType.INTEGER,
+    field: orderWriteFields.fiatSellId,
+  })
+  fiatSellId!: number;
+
+  @BelongsTo(() => FiatModel, "id")
+  fiatSell!: FiatModel;
 
   @Column({
     type: DataType.INTEGER,
-    field: orderCommonFields.cryptoCurrencySellPrice,
+    field: orderCommonFields.currencySellPrice,
   })
-  cryptoCurrencySellPrice!: number;
+  currencySellPrice!: number;
 
   @ForeignKey(() => CountryModel)
   @Column({

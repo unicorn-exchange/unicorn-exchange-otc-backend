@@ -1,13 +1,8 @@
 import * as yup from "yup";
 
-export function validateObject(data: object, schema: yup.ObjectSchemaDefinition<object>): Promise<void> {
+export function validateObject(data: object, schema: yup.ObjectSchemaDefinition<object>): Promise<object> {
   return yup
     .object()
     .shape(schema)
-    .isValid(data)
-    .then(valid => {
-      if (!valid) {
-        throw new Error("Invalid params"); // TODO: Redo and add key-value errors
-      }
-    });
+    .validate(data);
 }

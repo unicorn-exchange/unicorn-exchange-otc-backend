@@ -3,9 +3,11 @@ import {IBaseContext} from "../src/interfaces/IContext";
 import {defaultLogger} from "../src/utils/logger";
 import {ISignUpUserReq} from "../src/types/api/requests";
 import {orderCommonFields, orderWriteFields} from "../src/types/enums/forms/order";
-import {IOrderWriteDTO} from "../src/types/api/dtos";
+import {IOrderWriteDTO, IUserDTO} from "../src/types/api/dtos";
 import {initModels} from "../src/services/db";
 import {Sequelize} from "sequelize-typescript";
+import {CurrencyTypes} from "../src/types/enums/currency-types";
+import {UserModel} from "../src/types/models/user.model";
 
 export function beforeAllCommon(db: Sequelize) {
   jest.setTimeout(30000);
@@ -36,24 +38,40 @@ export const mockUserInvalid: ISignUpUserReq = {
   username: "invalid",
 };
 
-export const mockUserValid1: ISignUpUserReq = {
+export const mockUserValid1: IUserDTO = {
+  id: 1,
   email: "test1@google.com",
   password: "password1",
   username: "username1",
+  rating: 3,
+  dealsCount: 0,
 };
 
-export const mockUserValid2: ISignUpUserReq = {
+export const mockUserValid2: IUserDTO = {
+  id: 2,
   email: "test2@google.com",
   password: "password2",
   username: "username2",
+  rating: 0,
+  dealsCount: 0,
 };
+
+export const mockUserModel = {id: 1} as UserModel;
 
 export const mockOrderCreateValid: IOrderWriteDTO = {
   [orderWriteFields.countryId]: 1,
-  [orderWriteFields.cryptoCurrencySellId]: 1,
-  [orderCommonFields.cryptoCurrencySellPrice]: 1,
-  [orderWriteFields.cryptoCurrencyBuyId]: 1,
-  [orderCommonFields.cryptoCurrencyBuyPrice]: 1,
+  [orderCommonFields.currencySell]: {
+    id: 1,
+    title: "string",
+    type: CurrencyTypes.fiat,
+  },
+  [orderCommonFields.currencySellPrice]: 1,
+  [orderCommonFields.currencyBuy]: {
+    id: 1,
+    title: "string",
+    type: CurrencyTypes.cryptoCurrency,
+  },
+  [orderCommonFields.currencyBuyPrice]: 1,
   [orderWriteFields.paymentMethodId]: 1,
   [orderCommonFields.bankName]: "string",
   [orderCommonFields.marginProfit]: 1,

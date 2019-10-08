@@ -1,7 +1,7 @@
 import {config} from "dotenv";
 import path from "path";
 import {ENV_VARIABLES} from "./types/enums/environments";
-import {Blockchains} from "./types/enums/blockchains";
+import {BlockchainNodes} from "./types/enums/blockchain-nodes";
 
 process.env.NODE_ENV = process.env.NODE_ENV || ENV_VARIABLES.DEVELOPMENT;
 
@@ -36,7 +36,7 @@ class Env implements IEnv {
     }
     if (
       !env.BLOCKCHAIN_NETWORK ||
-      (env.BLOCKCHAIN_NETWORK !== Blockchains.Testnet && env.BLOCKCHAIN_NETWORK !== Blockchains.Bitcoin)
+      (env.BLOCKCHAIN_NETWORK !== BlockchainNodes.Testnet && env.BLOCKCHAIN_NETWORK !== BlockchainNodes.Bitcoin)
     ) {
       throw new Error("Blockchain network is not defined");
     }

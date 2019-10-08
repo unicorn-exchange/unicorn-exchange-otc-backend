@@ -4,19 +4,20 @@ import path from "path";
 import {IBaseContext} from "../interfaces/IContext";
 import {UserModel} from "../types/models/user.model";
 import {ROOT} from "../../config";
-import {BlockchainModel} from "../types/models/blockchain.model";
+import {CryptoCurrencyModel} from "../types/models/crypto-currency.model";
 import {CryptoAccountModel} from "../types/models/crypto-account.model";
 import {CryptoKeyModel} from "../types/models/crypto-key.model";
 import {OrderModel} from "../types/models/order.model";
 import {IEnv} from "../env";
 import {CountryModel} from "../types/models/country.model";
-import {CurrencyModel} from "../types/models/currency.model";
+import {FiatModel} from "../types/models/fiat.model";
 import {PaymentMethodModel} from "../types/models/payment-method.model";
 import {countries} from "../../data/countries";
-import {blockchains} from "../../data/blockchains";
+import {cryptoCurrencies} from "../../data/crypto-currencies";
 import {paymentMethods} from "../../data/payment-methods";
 import {BulkCreateOptions} from "sequelize";
 import {initPolyfills} from "../utils/polyfils";
+import {fiats} from "../../data/fiats";
 
 initPolyfills(global);
 
@@ -41,11 +42,11 @@ export function createDB(ctx: IBaseContext): Sequelize {
     storage,
   });
   sequelize.addModels([
-    BlockchainModel,
+    CryptoCurrencyModel,
     CountryModel,
     CryptoAccountModel,
     CryptoKeyModel,
-    CurrencyModel,
+    FiatModel,
     OrderModel,
     PaymentMethodModel,
     UserModel,
@@ -67,14 +68,16 @@ export function initDefaultData(db: Sequelize, env: IEnv): Promise<Sequelize> {
     delete options.updateOnDuplicate;
     truncateFn = Promise.all([
       CountryModel.truncate({force: true}),
-      BlockchainModel.truncate({force: true}),
+      CryptoCurrencyModel.truncate({force: true}),
+      FiatModel.truncate({force: true}),
       PaymentMethodModel.truncate({force: true}),
     ]);
   }
   return truncateFn.then(() => {
     return Promise.all([
       CountryModel.bulkCreate(countries, options),
-      BlockchainModel.bulkCreate(blockchains, options),
+      CryptoCurrencyModel.bulkCreate(cryptoCurrencies, options),
+      FiatModel.bulkCreate(fiats, options),
       PaymentMethodModel.bulkCreate(paymentMethods, options),
     ]).then(() => db);
   });

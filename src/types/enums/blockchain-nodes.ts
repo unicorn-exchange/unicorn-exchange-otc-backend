@@ -1,4 +1,4 @@
-export const enum Blockchains {
+export const enum BlockchainNodes {
   Testnet = "testnet",
   Bitcoin = "bitcoin",
 }

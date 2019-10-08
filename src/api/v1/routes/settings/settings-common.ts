@@ -1,17 +1,19 @@
 import {ISettingsCommonRes} from "../../../../types/api/responses";
 import {CountryModel} from "../../../../types/models/country.model";
-import {BlockchainModel} from "../../../../types/models/blockchain.model";
+import {CryptoCurrencyModel} from "../../../../types/models/crypto-currency.model";
 import {PaymentMethodModel} from "../../../../types/models/payment-method.model";
+import {FiatModel} from "../../../../types/models/fiat.model";
 
 export function settingsCommonCtr(): Promise<ISettingsCommonRes> {
   return Promise.props({
     countries: CountryModel.findAll(),
-    cryptoCurrencies: BlockchainModel.findAll(),
+    fiats: FiatModel.findAll(),
+    cryptoCurrencies: CryptoCurrencyModel.findAll(),
     paymentMethods: PaymentMethodModel.findAll(),
   }).then(props => {
-    const {paymentMethods, countries, cryptoCurrencies} = props as ISettingsCommonRes;
+    const {paymentMethods, countries, cryptoCurrencies, fiats} = props as ISettingsCommonRes;
     // TODO: check if we need for toJSON()
-    if (!paymentMethods || !countries || !cryptoCurrencies) {
+    if (!paymentMethods || !countries || !cryptoCurrencies || !fiats) {
       throw new Error("Settings error");
     }
     // TODO: Check types
@@ -20,6 +22,7 @@ export function settingsCommonCtr(): Promise<ISettingsCommonRes> {
       countries,
       cryptoCurrencies,
       paymentMethods,
+      fiats,
     };
   });
 }

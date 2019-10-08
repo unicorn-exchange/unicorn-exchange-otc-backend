@@ -21,15 +21,15 @@ describe("Local auth service test", () => {
     });
   });
 
-  it("should sign up a different user", () => {
-    return auth.signUp(mockUserValid2, {transaction: t}).then(res => {
-      expect(res.user.email).toBe(mockUserValid2.email);
-    });
-  });
-
   it("should NOT sign up a user with the same email and username", () => {
     return auth.signUp(mockUserValid1, {transaction: t}).catch(err => {
       expect(err).toBeDefined();
+    });
+  });
+
+  it("should sign up a different user", () => {
+    return auth.signUp(mockUserValid2, {transaction: t}).then(res => {
+      expect(res.user.email).toBe(mockUserValid2.email);
     });
   });
 

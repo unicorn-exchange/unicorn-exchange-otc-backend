@@ -1,6 +1,6 @@
 import {beforeAllCommon, mockBaseCtx} from "../test_utils";
 import {createDB} from "../../src/services/db";
-import {settingsCommonCtr} from "../../src/api/v1/routes/settings/common";
+import {settingsCommonCtr} from "../../src/api/v1/routes/settings/settings-common";
 
 const db = createDB(mockBaseCtx);
 

@@ -4,7 +4,7 @@ import {ISignUpUserReq} from "../../../../types/api/requests";
 import {signUpValidationScheme} from "../../../../types/validators/sign-up-validator";
 import {validateObject} from "../../../../utils/utils";
 import {CryptoAccountModel} from "../../../../types/models/crypto-account.model";
-import {BlockchainsIds} from "../../../../../data/blockchains";
+import {CryptoCurrencyIds} from "../../../../../data/crypto-currencies";
 import {QueryInterfaceOptions} from "sequelize";
 
 export async function signUpCtr(
@@ -40,14 +40,14 @@ function createDefaultWallets(user: ISignInUserRes, options?: QueryInterfaceOpti
     CryptoAccountModel.create(
       {
         userId: user.id,
-        blockchainId: BlockchainsIds.Bitcoin,
+        cryptoCurrencyId: CryptoCurrencyIds.Bitcoin,
       },
       options,
     ),
     CryptoAccountModel.create(
       {
         userId: user.id,
-        blockchainId: BlockchainsIds.Ethereum,
+        cryptoCurrencyId: CryptoCurrencyIds.Ethereum,
       },
       options,
     ),

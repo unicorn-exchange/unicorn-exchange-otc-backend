@@ -1,12 +1,12 @@
 import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {UserModel} from "./user.model";
-import {BlockchainModel} from "./blockchain.model";
+import {CryptoCurrencyModel} from "./crypto-currency.model";
 
 @Table({modelName: "crypto_accounts"})
 export class CryptoAccountModel extends Model<CryptoAccountModel> {
-  @ForeignKey(() => BlockchainModel)
+  @ForeignKey(() => CryptoCurrencyModel)
   @Column(DataType.INTEGER)
-  blockchainId!: number;
+  cryptoCurrencyId!: number;
 
   @Column(DataType.BOOLEAN)
   isActive!: boolean;

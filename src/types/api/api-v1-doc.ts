@@ -1,5 +1,6 @@
 import {
   ICommonRes,
+  IOrderRes,
   IOrdersCreateRes,
   IOrdersRes,
   ISettingsCommonRes,
@@ -9,7 +10,7 @@ import {
   ISignUpRes,
 } from "./responses";
 import {IDepositReq, IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
-import {IDBInstance, IFullOrderDTO, IOrderWriteDTO} from "./dtos";
+import {IDBInstance, IOrderWriteDTO} from "./dtos";
 
 export const USERS_ME = "/users/me";
 export const USERS_DEPOSIT = "/users/deposit";
@@ -83,7 +84,7 @@ export interface APIV1Doc {
   [ORDERS_GET_ONE]: {
     GET: {
       params: IDBInstance;
-      response: IFullOrderDTO;
+      response: IOrderRes;
     };
   };
 

@@ -9,7 +9,7 @@ declare global {
 
     export interface Request {
       token?: string;
-      user?: UserModel;
+      user: UserModel; // TODO: Think
     }
   }
 }

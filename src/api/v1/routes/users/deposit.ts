@@ -1,17 +1,14 @@
-import {OrderModel} from "../../../../types/models/order.model";
-import {ICommonRes, IOrdersCreateRes} from "../../../../types/api/responses";
+import {ICommonRes} from "../../../../types/api/responses";
 import {validateObject} from "../../../../utils/utils";
 import {IDepositReq} from "../../../../types/api/requests";
 import {userDepositValidationScheme} from "../../../../types/validators/deposit-validator";
 
 export async function depositCtr(params: IDepositReq): Promise<ICommonRes> {
   return validateObject(params, userDepositValidationScheme)
-    .then(() => OrderModel.create(params))
-    .then(orderInstance => {
+    .then(() => {
       return {
         ok: true,
-        payload: orderInstance,
-      } as IOrdersCreateRes;
+      } as ICommonRes;
     })
     .catch(err => {
       return {

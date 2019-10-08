@@ -1,7 +1,7 @@
 import {beforeAllCommon, mockBaseCtx} from "../test_utils";
 import {createDB} from "../../src/services/db";
 import {ordersGetAllCtr} from "../../src/api/v1/routes/orders/orders-get-all.ctr";
-import {orderReadFields} from "../../src/types/enums/forms/order";
+import {orderCommonFields, orderReadFields} from "../../src/types/enums/forms/order";
 
 const db = createDB(mockBaseCtx);
 
@@ -19,8 +19,8 @@ describe("Get list of orders tests", () => {
     expect(order.id).toBe(1);
     expect(order[orderReadFields.owner]).toBeDefined();
     expect(order[orderReadFields.country]).toBeDefined();
-    expect(order[orderReadFields.cryptoCurrencySell]).toBeDefined();
-    expect(order[orderReadFields.cryptoCurrencyBuy]).toBeDefined();
+    expect(order[orderCommonFields.currencySell]).toBeDefined();
+    expect(order[orderCommonFields.currencyBuy]).toBeDefined();
     expect(order[orderReadFields.paymentMethod]).toBeDefined();
   });
 });

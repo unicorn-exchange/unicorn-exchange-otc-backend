@@ -4,6 +4,7 @@ import {
   ICountryDTO,
   ICryptoCurrencyDTO,
   IDBInstance,
+  IFiatDTO,
   IFullOrderDTO,
   IOrderWriteDTO,
   IPartOrderDTO,
@@ -23,6 +24,7 @@ export interface ISignInUserRes extends ISignUpUserReq, IDBInstance {}
 
 export interface ISettingsCommonRes extends ICommonRes {
   cryptoCurrencies: ICryptoCurrencyDTO[];
+  fiats: IFiatDTO[];
   countries: ICountryDTO[];
   paymentMethods: IPaymentMethodDTO[];
 }

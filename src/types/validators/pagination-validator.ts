@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import {paginationFields} from "../enums/forms/pagination";
+import {IOrdersReq} from "../api/requests";
 
 export const paginationValidationScheme = {
   [paginationFields.limit]: yup
@@ -13,7 +14,7 @@ export const paginationValidationScheme = {
     .nullable(),
 };
 
-export const defaultPagination = {
+export const defaultPagination: IOrdersReq = {
   [paginationFields.limit]: 20,
   [paginationFields.offset]: 0,
 };

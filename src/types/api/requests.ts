@@ -1,12 +1,13 @@
 import {userDepositFields} from "../enums/forms/user-deposit";
 import {paginationFields} from "../enums/forms/pagination";
+import {IOrderWriteDTO} from "./dtos";
 
 export interface IPagination {
-  [paginationFields.limit]?: number;
-  [paginationFields.offset]?: number;
+  [paginationFields.limit]: number;
+  [paginationFields.offset]: number;
 }
 
-export interface IOrdersReq extends IPagination {}
+export interface IOrdersReq extends IPagination, Partial<IOrderWriteDTO> {}
 
 export interface ISignInUserReq {
   email: string;
