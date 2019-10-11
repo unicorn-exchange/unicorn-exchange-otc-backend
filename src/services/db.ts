@@ -1,5 +1,4 @@
 import {Sequelize} from "sequelize-typescript";
-import {mockEnv} from "../../tests/test_utils";
 import path from "path";
 import {IBaseContext} from "../interfaces/IContext";
 import {UserModel} from "../types/models/user.model";
@@ -29,7 +28,7 @@ export async function initDBConnection(ctx: IBaseContext): Promise<Sequelize> {
 
 export function createDB(ctx: IBaseContext): Sequelize {
   const {env} = ctx;
-  const storage = path.join(ROOT, "./tests", mockEnv.SQLITE_STORAGE);
+  const storage = path.join(ROOT, env.SQLITE_STORAGE_FILE);
 
   // @ts-ignore
   const sequelize = new Sequelize({
@@ -38,7 +37,7 @@ export function createDB(ctx: IBaseContext): Sequelize {
     // eslint-disable-next-line no-console
     logging: console.log,
     host: env.DB_HOST,
-    dialect: env.DB_DIALECT ? env.DB_DIALECT : "sqlite",
+    dialect: env.DB_DIALECT,
     storage,
   });
   sequelize.addModels([

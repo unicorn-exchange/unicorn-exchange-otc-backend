@@ -2,6 +2,7 @@ import {config} from "dotenv";
 import path from "path";
 import {ENV_VARIABLES} from "./types/enums/environments";
 import {BlockchainNodes} from "./types/enums/blockchain-nodes";
+import {mockEnv} from "../tests/test_utils";
 
 process.env.NODE_ENV = process.env.NODE_ENV || ENV_VARIABLES.DEVELOPMENT;
 
@@ -15,7 +16,8 @@ export interface IEnv {
   DB_NAME: string;
   DB_USERNAME: string;
   DB_PASSWORD: string;
-  DB_DIALECT?: string;
+  DB_DIALECT: string;
+  SQLITE_STORAGE_FILE: string;
 }
 
 class Env implements IEnv {
@@ -28,7 +30,8 @@ class Env implements IEnv {
   DB_NAME: string;
   DB_USERNAME: string;
   DB_PASSWORD: string;
-  DB_DIALECT?: string;
+  DB_DIALECT: string;
+  SQLITE_STORAGE_FILE: string;
 
   constructor(env: NodeJS.ProcessEnv) {
     if (!env.PORT) {
@@ -52,6 +55,14 @@ class Env implements IEnv {
     if (!env.DB_USERNAME || !env.DB_PASSWORD) {
       throw new Error("Database username and password are not defined");
     }
+    if (!env.SQLITE_STORAGE_FILE) {
+      // eslint-disable-next-line no-console
+      console.log("No SQLITE_STORAGE_FILE provided, using default - ", mockEnv.SQLITE_STORAGE_FILE);
+    }
+    if (!env.DB_DIALECT) {
+      // eslint-disable-next-line no-console
+      console.log("No SQLITE_STORAGE_FILE provided, using default - ", mockEnv.DB_DIALECT);
+    }
     this.PORT = parseInt(env.PORT, 10);
     this.BLOCKCHAIN_NETWORK = env.BLOCKCHAIN_NETWORK;
     this.IS_PRODUCTION = env.NODE_ENV === ENV_VARIABLES.PRODUCTION;
@@ -60,8 +71,8 @@ class Env implements IEnv {
     this.DB_NAME = env.DB_NAME;
     this.DB_USERNAME = env.DB_USERNAME;
     this.DB_PASSWORD = env.DB_PASSWORD;
-    this.DB_PASSWORD = env.DB_PASSWORD;
-    this.DB_DIALECT = env.DB_DIALECT;
+    this.DB_DIALECT = env.DB_DIALECT || mockEnv.DB_DIALECT;
+    this.SQLITE_STORAGE_FILE = env.SQLITE_STORAGE_FILE || mockEnv.SQLITE_STORAGE_FILE;
   }
 }
 

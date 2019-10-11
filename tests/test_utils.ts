@@ -14,18 +14,14 @@ export function beforeAllCommon(db: Sequelize) {
   return initModels(db, mockEnv).then(db => db.transaction());
 }
 
-interface IEnvTest extends IEnv {
-  SQLITE_STORAGE: string;
-}
-
-export const mockEnv: IEnvTest = {
+export const mockEnv: IEnv = {
   BLOCKCHAIN_NETWORK: "test",
-  DB_DIALECT: "sqlite",
   DB_HOST: "",
   DB_NAME: "",
   DB_PASSWORD: "",
   DB_USERNAME: "",
-  SQLITE_STORAGE: "db.sqlite",
+  SQLITE_STORAGE_FILE: "./tests/db_test.sqlite",
+  DB_DIALECT: "sqlite",
   IS_PRODUCTION: false,
   IS_FORCE_DB_SYNC: false,
   JWT_SECRET: "secret",
