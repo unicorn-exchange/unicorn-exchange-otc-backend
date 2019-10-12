@@ -115,10 +115,10 @@ export class OrderModel extends Model<OrderModel> {
   marginProfit!: number;
 
   @Column(DataType.BIGINT)
-  buyAmount!: bigint;
+  buyAmount!: number;
 
   @Column(DataType.BIGINT)
-  sellAmount!: bigint;
+  sellAmount!: number;
 
   @Column(DataType.FLOAT)
   exchangeRate!: number;

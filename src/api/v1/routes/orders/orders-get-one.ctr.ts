@@ -11,7 +11,7 @@ import {IOrderRes} from "../../../../types/api/responses";
 import {FiatModel} from "../../../../types/models/fiat.model";
 import {CurrencyTypes} from "../../../../types/enums/currency-types";
 
-export async function ordersGetOneCtr(params: IDBInstance): Promise<IOrderRes> {
+export async function ordersGetOneCtr(currentUser: UserModel, params: IDBInstance): Promise<IOrderRes> {
   return validateObject(params, dbInstanceValidationScheme)
     .then(() =>
       OrderModel.findByPk(params.id, {

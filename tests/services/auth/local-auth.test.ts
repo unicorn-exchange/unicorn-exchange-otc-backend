@@ -2,7 +2,8 @@ import {beforeAllCommon, mockBaseCtx, mockUserValid1, mockUserValid2} from "../.
 import {createDB} from "../../../src/services/db";
 import {LocalAuth} from "../../../src/services/auth/local-auth";
 import {Transaction} from "sequelize";
-import {meCtr} from "../../../src/api/v1/routes/users/me";
+import {usersMeCtr} from "../../../src/api/v1/routes/users/users-me";
+import {decodeToken} from "../../../src/api/middlewares/isAuth";
 
 const db = createDB(mockBaseCtx);
 const auth = new LocalAuth(mockBaseCtx, db);
@@ -14,8 +15,10 @@ describe("Local auth service test", () => {
   it("should sign in a user and get a valid token", () => {
     return auth.signIn(mockUserValid1).then(res => {
       expect(res.user.password).not.toBe(mockUserValid1.password);
-      return meCtr(res.token).then(meRes => {
-        expect(meRes.id).toBe(res.user.id);
+      const obj = decodeToken(res.token);
+      return usersMeCtr(obj).then(meRes => {
+        expect(meRes.payload).toBeDefined();
+        expect(meRes.payload!.id).toBe(res.user.id);
         return meRes;
       });
     });

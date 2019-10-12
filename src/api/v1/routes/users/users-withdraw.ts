@@ -1,9 +1,9 @@
-import {IOrdersCreateRes} from "../../../../types/api/responses";
+import {ICommonRes, IOrdersCreateRes} from "../../../../types/api/responses";
 import {ordersCreateValidationScheme} from "../../../../types/validators/orders-create-validator";
 import {validateObject} from "../../../../utils/utils";
 import {IOrderWriteDTO} from "../../../../types/api/dtos";
 
-export async function depositCtr(params: IOrderWriteDTO): Promise<IOrdersCreateRes> {
+export async function usersWithdrawCtr(params: IOrderWriteDTO): Promise<ICommonRes> {
   return validateObject(params, ordersCreateValidationScheme)
     .then(() => {
       return {

@@ -11,7 +11,10 @@ import {CountryModel} from "../../../../types/models/country.model";
 import {FiatModel} from "../../../../types/models/fiat.model";
 import {fromCurrencyType} from "./orders-get-one.ctr";
 
-export async function ordersGetAllCtr(query: IOrdersReq = defaultPagination): Promise<IOrdersRes> {
+export async function ordersGetAllCtr(
+  currentUser: UserModel,
+  query: IOrdersReq = defaultPagination,
+): Promise<IOrdersRes> {
   return OrderModel.findAndCountAll({
     limit: query[paginationFields.limit],
     offset: query[paginationFields.offset],

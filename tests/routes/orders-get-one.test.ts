@@ -1,4 +1,4 @@
-import {beforeAllCommon, mockBaseCtx} from "../test_utils";
+import {beforeAllCommon, mockBaseCtx, mockUserModel} from "../test_utils";
 import {createDB} from "../../src/services/db";
 import {ordersGetOneCtr} from "../../src/api/v1/routes/orders/orders-get-one.ctr";
 import {orderCommonFields, orderReadFields} from "../../src/types/enums/forms/order";
@@ -9,7 +9,7 @@ describe("Full order tests", () => {
   beforeAll(() => beforeAllCommon(db));
 
   it("should get one full order", async () => {
-    const res = await ordersGetOneCtr({id: 1});
+    const res = await ordersGetOneCtr(mockUserModel, {id: 1});
     expect(res.ok).toBeTruthy();
     expect(res.errors).not.toBeDefined();
     const order = res.payload!;

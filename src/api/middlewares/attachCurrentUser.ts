@@ -1,33 +1,28 @@
 import {NextFunction, Request, Response} from "express";
 import {UserModel} from "../../types/models/user.model";
-import {decodeToken} from "./isAuth";
+import {ExpressError} from "../../interfaces/IErrorReporter";
+import {Errors} from "../../types/enums/errors";
 
 export function attachCurrentUser(req: Request, res: Response, next: NextFunction) {
   if (!req.token) {
-    return next(new Error("No token"));
+    return next(
+      new ExpressError({
+        name: Errors.UnauthorizedError,
+        message: "No token was found",
+        status: 401,
+      }),
+    );
   }
-  const obj = decodeToken(req.token);
-  UserModel.findByPk(obj.userId).then(user => {
+  UserModel.findByPk(req.token.userId).then(user => {
     if (!user) {
-      return next(new Error("No user"));
+      return next(
+        new ExpressError({
+          name: Errors.UnauthorizedError,
+          message: "No user was found",
+          status: 401,
+        }),
+      );
     }
     req.user = user.toJSON();
   });
-
-  // const Logger = Container.get("logger");
-  // try {
-  //   const UserModel = Container.get("userModel") as mongoose.Model<IUser & mongoose.Document>;
-  //   const userRecord = await UserModel.findByPk(req.token._id);
-  //   if (!userRecord) {
-  //     return res.sendStatus(401);
-  //   }
-  //   const currentUser = userRecord.toObject();
-  //   Reflect.deleteProperty(currentUser, "password");
-  //   Reflect.deleteProperty(currentUser, "salt");
-  //   req.currentUser = currentUser;
-  //   return next();
-  // } catch (e) {
-  //   Logger.error("🔥 Error attaching user to req: %o", e);
-  //   return next(e);
-  // }
 }

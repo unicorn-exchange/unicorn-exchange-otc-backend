@@ -1,5 +1,6 @@
 import {IAppContext} from "./interfaces/IContext";
 import {UserModel} from "./types/models/user.model";
+import {IDecodedTokenObj} from "./interfaces/IAuth";
 
 declare global {
   namespace Express {
@@ -8,7 +9,7 @@ declare global {
     }
 
     export interface Request {
-      token?: string;
+      token?: IDecodedTokenObj;
       user: UserModel; // TODO: Think
     }
   }

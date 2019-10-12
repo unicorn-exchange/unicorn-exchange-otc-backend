@@ -4,7 +4,7 @@ import {ISignInUserReq} from "../../../../types/api/requests";
 import {signInValidationScheme} from "../../../../types/validators/sign-in-validator";
 import {validateObject} from "../../../../utils/utils";
 
-export async function signInCtr(auth: IAuth, user: ISignInUserReq): Promise<ISignInRes> {
+export async function authSignInCtr(auth: IAuth, user: ISignInUserReq): Promise<ISignInRes> {
   return validateObject(user, signInValidationScheme)
     .then(() =>
       auth.signIn({

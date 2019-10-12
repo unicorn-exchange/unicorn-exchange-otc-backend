@@ -9,6 +9,7 @@ import {
   IOrderWriteDTO,
   IPartOrderDTO,
   IPaymentMethodDTO,
+  IUserDTO,
 } from "./dtos";
 
 export interface ICommonRes {
@@ -48,4 +49,8 @@ export interface IOrderRes extends ICommonRes {
 export interface IOrdersRes extends ICommonRes {
   payload?: IPartOrderDTO[];
   count: number;
+}
+
+export interface IUserRes extends ICommonRes {
+  payload?: IUserDTO;
 }

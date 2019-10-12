@@ -21,10 +21,10 @@ import {isAuth} from "../../../middlewares/isAuth";
 export function ordersRouter(parentRouter: Router) {
   const router = RestypedRouter<APIV1Doc>(parentRouter);
 
-  router.get(ORDERS_GET_ONE, async req => ordersGetOneCtr(req.params));
-  router.get(ORDERS_GET_ALL, async req => ordersGetAllCtr(req.query));
-  router.post(ORDERS_CREATE, async req => ordersCreateCtr(req.user, req.body), attachCurrentUser, isAuth);
-  router.get(ORDERS_REQUEST, async req => ordersRequestCtr(req.query));
-  router.post(ORDERS_CONFIRM, async req => ordersConfirmCtr(req.user, req.body), attachCurrentUser, isAuth);
-  router.post(ORDERS_DECLINE, async req => ordersDeclineCtr(req.user, req.body), attachCurrentUser, isAuth);
+  router.get(ORDERS_GET_ONE, async req => ordersGetOneCtr(req.user, req.params), isAuth, attachCurrentUser);
+  router.get(ORDERS_GET_ALL, async req => ordersGetAllCtr(req.user, req.query), isAuth, attachCurrentUser);
+  router.post(ORDERS_CREATE, async req => ordersCreateCtr(req.user, req.body), isAuth, attachCurrentUser);
+  router.get(ORDERS_REQUEST, async req => ordersRequestCtr(req.user, req.query), isAuth, attachCurrentUser);
+  router.post(ORDERS_CONFIRM, async req => ordersConfirmCtr(req.user, req.body), isAuth, attachCurrentUser);
+  router.post(ORDERS_DECLINE, async req => ordersDeclineCtr(req.user, req.body), isAuth, attachCurrentUser);
 }

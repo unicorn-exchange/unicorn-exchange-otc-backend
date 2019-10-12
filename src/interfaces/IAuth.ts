@@ -10,6 +10,7 @@ interface IAuthResponse {
 export interface IDecodedTokenObj {
   userId: number;
   exp: number;
+  iat: number;
 }
 
 export interface IAuth {

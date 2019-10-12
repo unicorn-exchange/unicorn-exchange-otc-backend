@@ -7,13 +7,13 @@ import {CryptoAccountModel} from "../../../../types/models/crypto-account.model"
 import {CryptoCurrencyIds} from "../../../../../data/crypto-currencies";
 import {QueryInterfaceOptions} from "sequelize";
 
-export async function signUpCtr(
+export async function authSignUpCtr(
   auth: IAuth,
   user: ISignUpUserReq,
   options?: QueryInterfaceOptions,
 ): Promise<ISignUpRes> {
   return validateObject(user, signUpValidationScheme)
-    .then(vv => auth.signUp(user, options))
+    .then(() => auth.signUp(user, options))
     .then(({user, token}) => {
       if (!user) {
         throw new Error("No User");

@@ -5,9 +5,9 @@ import {
   IOrdersRes,
   ISettingsCommonRes,
   ISignInRes,
-  ISignInUserRes,
   ISignInUserWithTokenRes,
   ISignUpRes,
+  IUserRes,
 } from "./responses";
 import {IDepositReq, IOrdersReq, ISignInUserReq, ISignUpUserReq} from "./requests";
 import {IDBInstance, IOrderWriteDTO} from "./dtos";
@@ -20,7 +20,6 @@ export const AUTH_SIGN_UP = "/auth/sign-up";
 export const AUTH_SIGN_IN = "/auth/sign-in";
 
 // Settings
-export const SETTINGS = "/settings";
 export const SETTINGS_COMMON = "/settings/common";
 
 // Orders
@@ -35,7 +34,7 @@ export interface APIV1Doc {
   [USERS_ME]: {
     GET: {
       head: ISignInUserWithTokenRes;
-      response: ISignInUserRes;
+      response: IUserRes;
     };
   };
 
@@ -58,12 +57,6 @@ export interface APIV1Doc {
     POST: {
       body: ISignInUserReq;
       response: ISignInRes;
-    };
-  };
-
-  [SETTINGS]: {
-    GET: {
-      response: ICommonRes;
     };
   };
 
