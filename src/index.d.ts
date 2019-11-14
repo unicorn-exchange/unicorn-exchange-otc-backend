@@ -1,6 +1,6 @@
 import {IAppContext} from "./interfaces/IContext";
-import {UserModel} from "./types/models/user.model";
 import {IDecodedTokenObj} from "./interfaces/IAuth";
+import {IAuthCtx} from "./socket/auth-middleware";
 
 declare global {
   namespace Express {
@@ -10,7 +10,14 @@ declare global {
 
     export interface Request {
       token?: IDecodedTokenObj;
-      user: UserModel; // TODO: Think
+      ctx: IAppContext;
+      user: IAuthCtx;
+    }
+
+    namespace SocketIO {
+      export interface Socket {
+        authCtx: IAuthCtx;
+      }
     }
   }
 }

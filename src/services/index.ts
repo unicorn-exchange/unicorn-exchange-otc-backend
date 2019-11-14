@@ -4,19 +4,29 @@ import {IErrorReporter} from "../interfaces/IErrorReporter";
 import {IMailer} from "../interfaces/IMailer";
 import {ErrorReporter} from "./error-reporter";
 import {Mailer} from "./mailer";
+import {Server, Socket} from "socket.io";
 import {Sequelize} from "sequelize-typescript";
 import {IBaseContext} from "../interfaces/IContext";
 import {Wallet} from "./wallet/Wallet";
+import {initDBConnection, initDefaultData, initModels} from "./db";
 
 export interface IServices {
   auth: IAuth;
   errorReporter: IErrorReporter;
   mailer: IMailer;
+  socket?: Socket;
+  socketServer?: Server;
   wallet: Wallet;
   db: Sequelize;
 }
 
-export async function initServices(ctx: IBaseContext, db: Sequelize): Promise<IServices> {
+export async function initServices(ctx: IBaseContext): Promise<IServices> {
+  const {env} = ctx;
+
+  const db = await initDBConnection(ctx);
+  await initModels(db, env);
+  await initDefaultData(db, env);
+
   return {
     errorReporter: new ErrorReporter(ctx),
     mailer: new Mailer(ctx),

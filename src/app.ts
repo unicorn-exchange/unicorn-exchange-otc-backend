@@ -5,9 +5,9 @@ import {initLoaders} from "./loaders";
 import {initMiddlewares} from "./api/middlewares";
 import {initServices} from "./services";
 import {initSocket} from "./socket";
-import {initDBConnection, initDefaultData, initModels} from "./services/db";
 import {IBaseContext} from "./interfaces/IContext";
 import {initPolyfills} from "./utils/polyfils";
+import * as http from "http";
 
 initPolyfills(global);
 
@@ -19,30 +19,25 @@ const baseCtx: IBaseContext = {
   logger,
 };
 
-initDBConnection(baseCtx)
-  .then(db => initModels(db, env))
-  .then(db => initDefaultData(db, env))
-  .then(db => initServices(baseCtx, db))
+initServices(baseCtx)
   .then(services => {
     app.ctx = {
       env,
       logger,
       services,
-      db: services.db,
     };
     initMiddlewares(app);
     initLoaders(app);
 
-    const server = app.listen(env.PORT, (err: Error) => {
-      if (err) {
-        app.ctx.logger.error(err);
-        process.exit(1);
-        return;
-      }
-      app.ctx.logger.info(`Server listening on port: ${env.PORT}`);
+    return new Promise<http.Server>((resolve, reject) => {
+      const server = app.listen(env.PORT, err => {
+        return err ? reject(err) : logger.info(`Server is running on port: ${env.PORT}`);
+      });
+      resolve(server);
     });
-
-    initSocket(server);
+  })
+  .then(server => {
+    initSocket(server, app.ctx);
   })
   .catch(err => {
     logger.error(err);
