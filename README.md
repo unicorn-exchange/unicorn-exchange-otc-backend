@@ -14,8 +14,10 @@ Maybe we can transform this into something useful, a more advanced example, just
 The first time, you will need to run
 
 ```
-yarn
+yarn --ignore-optional
 ```
+
+Run it with `--ignore-optional` flag if you get any errors
 
 Then just start the server with 
 

@@ -1,21 +1,20 @@
 import {Socket} from "socket.io";
 import {nextFn} from "../utils/types";
 import {IAppContext} from "../interfaces/IContext";
+import {UserModel} from "../types/models/user.model";
 
 export interface IAuthCtx {
-  user: {
-    id: number; // Object id in mongo
-    socketId?: string; // Active socket id (if exists)
-  };
+  socketId?: string; // Active socket id (if exists)
+  user: UserModel;
 }
 
 // TODO
-function getUserByToken(ctx: IAppContext, token?: string): Promise<IAuthCtx> {
+function getUserByToken(ctx: IAppContext, token?: string): Promise<UserModel> {
   return !token
     ? Promise.reject(new Error("Auth error"))
     : Promise.resolve({
-        user: {_id: token},
-      });
+      id: 1,
+    });
 }
 
 export function authMiddleware(socket: Socket, next: nextFn, ctx: IAppContext) {
@@ -23,8 +22,10 @@ export function authMiddleware(socket: Socket, next: nextFn, ctx: IAppContext) {
 
   return getUserByToken(ctx, token)
     .then(res => {
-      res.user.socketId = socket.id;
-      socket.authCtx = res;
+      socket.authCtx = {
+        socketId: socket.id,
+        user: res,
+      };
       next();
     })
     .catch(err => next(err));
