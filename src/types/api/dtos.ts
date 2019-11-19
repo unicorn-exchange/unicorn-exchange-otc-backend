@@ -1,8 +1,13 @@
 import {orderCommonFields, orderReadFields, orderWriteFields} from "../enums/forms/order";
 import {CurrencyTypes} from "../enums/currency-types";
+import {mongoId, sqlId} from "../types";
 
 export interface IDBInstance {
-  id?: number;
+  id?: sqlId;
+}
+
+export interface IMongoInstance {
+  _id?: mongoId;
 }
 
 export interface IUserDTO extends IDBInstance {
@@ -31,6 +36,39 @@ export interface ICountryDTO extends IDBInstance {
 
 export interface IPaymentMethodDTO extends IDBInstance {
   title: string;
+}
+
+export interface IBaseMessage {
+  text: string;
+  receiverUserIds: string[];
+}
+
+export interface IChatMessage extends IBaseMessage, IMongoInstance {
+  reply?: boolean;
+  date?: any; // TODO: How to store date?
+  fromUserId: sqlId;
+  state?: string;
+  type?: string;
+  quote?: string;
+  files?: any;
+  isRead?: boolean;
+}
+
+export interface IChat {
+  /**
+   * List of users in chat
+   */
+  userIds: sqlId[];
+
+  /**
+   * Specific HEX string created from users list
+   */
+  hex: string;
+
+  /**
+   * List of messages in chat
+   */
+  messages: IChatMessage[];
 }
 
 export interface IOrderCommonDTO extends IDBInstance {

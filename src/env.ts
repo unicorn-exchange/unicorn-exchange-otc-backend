@@ -18,6 +18,11 @@ export interface IEnv {
   DB_PASSWORD: string;
   DB_DIALECT: string;
   SQLITE_STORAGE_FILE: string;
+  REDIS_HOST: string;
+  REDIS_PORT: number;
+  REDIS_NAME: string;
+  REDIS_USERNAME: string;
+  REDIS_PASSWORD: string;
 }
 
 class Env implements IEnv {
@@ -32,6 +37,11 @@ class Env implements IEnv {
   DB_PASSWORD: string;
   DB_DIALECT: string;
   SQLITE_STORAGE_FILE: string;
+  REDIS_HOST: string;
+  REDIS_PORT: number;
+  REDIS_NAME: string;
+  REDIS_USERNAME: string;
+  REDIS_PASSWORD: string;
 
   constructor(env: NodeJS.ProcessEnv) {
     if (!env.PORT) {
@@ -63,6 +73,11 @@ class Env implements IEnv {
       // eslint-disable-next-line no-console
       console.log("No SQLITE_STORAGE_FILE provided, using default - ", mockEnv.DB_DIALECT);
     }
+    this.REDIS_HOST = env.REDIS_HOST || mockEnv.REDIS_HOST;
+    this.REDIS_PORT = env.REDIS_PORT ? parseInt(env.REDIS_PORT, 10) : mockEnv.REDIS_PORT;
+    this.REDIS_NAME = env.REDIS_NAME || mockEnv.REDIS_NAME;
+    this.REDIS_USERNAME = env.REDIS_USERNAME || mockEnv.REDIS_USERNAME;
+    this.REDIS_PASSWORD = env.REDIS_PASSWORD || mockEnv.REDIS_PASSWORD;
     this.PORT = parseInt(env.PORT, 10);
     this.BLOCKCHAIN_NETWORK = env.BLOCKCHAIN_NETWORK;
     this.IS_PRODUCTION = env.NODE_ENV === ENV_VARIABLES.PRODUCTION;

@@ -24,7 +24,7 @@ export function initSocket(server: Server, ctx: IAppContext) {
     socket.on(Events.Message, msg => onAnyMessage(msg, ctx));
 
     // Custom
-    socket.on(Events.NewChatMessage, msg => onNewChatMessage(msg, ctx, socket.user));
+    socket.on(Events.NewChatMessage, msg => onNewChatMessage(msg, ctx, socket.authCtx));
   });
 }
 

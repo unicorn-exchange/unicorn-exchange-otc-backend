@@ -1,12 +1,12 @@
 import {IAppContext} from "../../interfaces/IContext";
 import {Events} from "../../types/enums/events";
-import {ChatModel} from "../../types/schemas/chat.schema";
 import {IAuthCtx} from "../auth-middleware";
 import {Socket} from "socket.io";
 import {createHexFromObjectIds} from "../../utils/utils";
 import moment from "moment";
-import {ICommonRes} from "../../types/api_deals/responses";
-import {IBaseMessage, IChatMessage} from "../../types/api_deals/dtos";
+import {ICommonRes} from "../../types/api/responses";
+import {IBaseMessage, IChatMessage} from "../../types/api/dtos";
+import {ChatModel} from "../../schemas/chat.schema";
 
 function isMsgValid(msg: IBaseMessage | undefined): boolean {
   return !!msg;
@@ -55,7 +55,7 @@ export function sendMsgToParticipants(fullMsg: IChatMessage, ctx: IAppContext) {
 
 export async function saveMsgInDB(fullMsg: IChatMessage, ctx: IAppContext) {
   if (!ctx.services.mongo) return;
-  const {sortedArr, hex} = createHexFromObjectIds(fullMsg.receiverUserIds.concat(fullMsg.fromUserId));
+  const {sortedArr, hex} = createHexFromObjectIds(fullMsg.receiverUserIds.concat(fullMsg.fromUserId.toString()));
 
   return ChatModel.updateOne(
     {hex},

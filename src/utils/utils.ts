@@ -6,3 +6,11 @@ export function validateObject(data: object, schema: yup.ObjectSchemaDefinition<
     .shape(schema)
     .validate(data);
 }
+
+export function createHexFromObjectIds(arr: string[], sep = ":") {
+  const sortedArr = arr.sort((a, b) => a.localeCompare(b));
+  return {
+    sortedArr,
+    hex: sortedArr.join(sep),
+  };
+}

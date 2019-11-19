@@ -24,6 +24,11 @@ export const mockEnv: IEnv = {
   DB_DIALECT: "sqlite",
   IS_PRODUCTION: false,
   IS_FORCE_DB_SYNC: false,
+  REDIS_HOST: "localhost",
+  REDIS_PORT: 6379,
+  REDIS_NAME: "redis_test",
+  REDIS_USERNAME: "redis_test",
+  REDIS_PASSWORD: "redis_test",
   JWT_SECRET: "secret",
   PORT: 3000,
 };

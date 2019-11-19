@@ -9,13 +9,21 @@ import {Sequelize} from "sequelize-typescript";
 import {IBaseContext} from "../interfaces/IContext";
 import {Wallet} from "./wallet/Wallet";
 import {initDBConnection, initDefaultData, initModels} from "./db";
+import {Mongoose} from "mongoose";
+import {Queue} from "bull";
+
+interface IQueues {
+  testQueue: Queue;
+}
 
 export interface IServices {
   auth: IAuth;
   errorReporter: IErrorReporter;
   mailer: IMailer;
+  queues?: IQueues;
   socket?: Socket;
   socketServer?: Server;
+  mongo?: Mongoose;
   wallet: Wallet;
   db: Sequelize;
 }

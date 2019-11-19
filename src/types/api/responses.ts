@@ -14,7 +14,7 @@ import {
 
 export interface ICommonRes {
   ok: boolean;
-  errors?: ValidationError[];
+  errors?: ValidationError[] | string[];
 }
 
 export interface ISignInUserWithTokenRes {
