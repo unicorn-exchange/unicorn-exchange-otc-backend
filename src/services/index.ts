@@ -13,7 +13,7 @@ import {Mongoose} from "mongoose";
 import {Queue} from "bull";
 
 interface IQueues {
-  testQueue: Queue;
+  updateBalance: Queue;
 }
 
 export interface IServices {

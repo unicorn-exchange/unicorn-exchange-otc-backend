@@ -2,7 +2,7 @@ import {BtcWallet} from "./wallets/BtcWallet";
 import {EthWallet} from "./wallets/EthWallet";
 import {GenerateMnemonic, IBtcWallet, IEth} from "./wallets/interfaces";
 
-import {generateMnemonic, validateMnemonic} from "bip39";
+import {generateMnemonic, validateMnemonic, mnemonicToSeedSync} from "bip39";
 
 type wallets = IBtcWallet | IEth;
 
@@ -35,9 +35,11 @@ export class Wallet {
     };
   }
 
-  initWallet(mnemonic: string) {
-    this.wallets.forEach(async wallet => {
-      await wallet.createKeyPairFromMnemonic({mnemonicSeed: mnemonic, indexForCreate: 0});
+  async initWallet(mnemonic: string) {
+    const mnemonicSeed: string = mnemonicToSeedSync(mnemonic).toString("hex");
+
+    this.wallets.forEach(wallet => {
+      wallet.createKeyPairFromMnemonic({mnemonicSeed, indexForCreate: 0});
     });
   }
 

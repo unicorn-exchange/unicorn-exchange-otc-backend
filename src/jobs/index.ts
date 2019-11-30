@@ -1,7 +1,7 @@
 import Queue, {Queue as IQueue} from "bull";
 import {IAppContext} from "../interfaces/IContext";
 import {RedisOptions} from "ioredis";
-import {onTestQueue} from "./on-test-queue";
+import {onUpdateBalance} from "./updateBalance";
 import {Events} from "../types/enums/events";
 
 // docker run -it --rm -p 6379:6379 --name redis_test redis redis-server --requirepass "redis_test"
@@ -22,15 +22,15 @@ export function initJobs(ctx: IAppContext) {
   } as RedisOptions;
 
   ctx.services.queues = {
-    testQueue: new Queue("test", {redis}),
+    updateBalance: new Queue("updateBalance", {redis}),
   };
-  const {testQueue} = ctx.services.queues;
+  const {updateBalance} = ctx.services.queues;
 
-  testQueue.on(Events.Error, err => {
+  updateBalance.on(Events.Error, err => {
     ctx.logger.error(err);
   });
 
-  return testQueue.process(job => onTestQueue(job, ctx)).catch(ctx.logger.error);
+  return updateBalance.process(job => onUpdateBalance(job, ctx)).catch(ctx.logger.error);
 }
 
 export function disconnectJobs(ctx?: IAppContext): Promise<any> {
